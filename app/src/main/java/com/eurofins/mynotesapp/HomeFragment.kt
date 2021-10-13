@@ -30,6 +30,4 @@ class HomeFragment : Fragment() {
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.adapter = NoteRVAdapter()
     }
-
-
 }
