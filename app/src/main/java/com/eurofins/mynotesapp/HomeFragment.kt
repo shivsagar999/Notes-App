@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.eurofins.mynotesapp.adapter.NoteRVAdapter
 import com.eurofins.mynotesapp.databinding.FragmentHomeBinding
@@ -29,5 +30,9 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.adapter = NoteRVAdapter()
+
+        binding.createNewNoteButton.setOnClickListener{
+            findNavController().navigate(R.id.action_homeFragment_to_createNoteFragment)
+        }
     }
 }

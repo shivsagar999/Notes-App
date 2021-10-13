@@ -4,4 +4,7 @@
     <dimen name="eight_dp">8dp</dimen>
     <dimen name="four_dp">4dp</dimen>
     <dimen name="fourteen_dp">14sp</dimen>
+    <dimen name="sixteen_dp">16dp</dimen>
+    <dimen name="twenty_sp">20sp</dimen>
+    <dimen name="fourteen_sp">14sp</dimen>
 </resources>
