@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/note_tiltle"
+            android:id="@+id/note_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/four_dp"
@@ -30,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/four_dp"
+            android:fontFamily="serif-monospace"
             android:padding="@dimen/four_dp"
             android:text="@string/description"
             android:textColor="@color/white"
