@@ -11,5 +11,5 @@ class Note(
     @ColumnInfo(name = "timestamp") val timeStamp: String
 ) {
     @PrimaryKey(autoGenerate = true)
-    var id = 0
+    var id: Int = 0
 }
