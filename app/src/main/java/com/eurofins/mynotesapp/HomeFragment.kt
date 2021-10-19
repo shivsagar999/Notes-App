@@ -3,6 +3,7 @@ package com.eurofins.mynotesapp
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +49,11 @@ class HomeFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        val noteAdapter = NoteListAdapter({})
+        val noteAdapter = NoteListAdapter({
+            val action = HomeFragmentDirections.actionHomeFragmentToCreateNoteFragment(
+                id = it.id)
+            findNavController().navigate(action)
+        })
         recyclerView.adapter = noteAdapter
 
         lifecycle.coroutineScope.launch{

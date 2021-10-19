@@ -24,5 +24,8 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
 </navigation>

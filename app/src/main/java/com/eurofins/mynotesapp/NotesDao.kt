@@ -19,4 +19,7 @@ interface NotesDao {
     @Query("select * from notesTable order by id ASC")
     fun getAllNotes(): Flow<List<Note>>
 
+    @Query("SELECT * FROM notesTable WHERE id =:id")
+    suspend fun getNote(id: Int): Note
+
 }
