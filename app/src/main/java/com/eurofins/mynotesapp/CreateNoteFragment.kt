@@ -27,12 +27,5 @@ class CreateNoteFragment : Fragment() {
         binding.backButton.setOnClickListener {
             findNavController().navigate(R.id.action_createNoteFragment_to_homeFragment)
         }
-
-
-
     }
-
-
-
-
 }
