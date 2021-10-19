@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import android.text.Layout
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +23,9 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
 
 
-    private lateinit var homeFragmentViewModel: NoteViewModel
+    private val homeFragmentViewModel: NoteViewModel by activityViewModels {
+        NoteViewModelFactory( (activity?.application as NoteApplication).database.getNotesDao())
+    }
     private lateinit var binding: FragmentHomeBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,20 +34,11 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        val application = requireNotNull(this.activity).application
-
-        val notesDao = NoteDatabase.getDatabase(application).getNotesDao()
-
-        val viewModelFactory = NoteViewModelFactory(notesDao, application)
-
-        homeFragmentViewModel = ViewModelProvider(this,
-            viewModelFactory).get(NoteViewModel::class.java)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val recyclerView = binding.recyclerView
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager =

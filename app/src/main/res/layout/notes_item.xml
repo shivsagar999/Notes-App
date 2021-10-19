@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/four_dp"
             android:fontFamily="serif-monospace"
+            android:maxLines="4"
             android:padding="@dimen/four_dp"
             android:text="@string/description"
             android:textColor="@color/white"

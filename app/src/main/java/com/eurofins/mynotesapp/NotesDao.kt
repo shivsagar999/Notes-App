@@ -8,10 +8,10 @@ import kotlinx.coroutines.flow.Flow
 interface NotesDao {
     // If there is data with the same id then it will be ignored
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(note: Note)
+    suspend fun insert(note: Note)
 
     @Update
-    fun update(note: Note)
+    suspend fun update(note: Note)
 
     @Delete
     fun delete(note: Note)
