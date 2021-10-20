@@ -11,27 +11,27 @@ import androidx.navigation.ui.setupActionBarWithNavController
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
+    // lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
-        //setUpViews()
+        // setUpViews()
     }
 
-    fun setUpViews(){
-        setUpDrawerLayout()
-    }
-
-    fun setUpDrawerLayout(){
-        setSupportActionBar(findViewById(R.id.appBar))
-        actionBarDrawerToggle = ActionBarDrawerToggle(this, findViewById(R.id.drawer_layout),R.string.app_name,R.string.app_name)
-        actionBarDrawerToggle.syncState()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
-            return true
-        }
-        return super.onOptionsItemSelected(item)
+//    fun setUpViews(){
+//        setUpDrawerLayout()
+//    }
+//
+//    fun setUpDrawerLayout(){
+//        setSupportActionBar(findViewById(R.id.appBar))
+//        actionBarDrawerToggle = ActionBarDrawerToggle(this, findViewById(R.id.drawer_layout),R.string.app_name,R.string.app_name)
+//        actionBarDrawerToggle.syncState()
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+//            return true
+//        }
+//        return super.onOptionsItemSelected(item)
     }
 }
