@@ -1,8 +1,9 @@
 package com.eurofins.mynotesapp
 
-import android.app.Application
-import androidx.lifecycle.*
-import kotlinx.coroutines.Dispatchers
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -45,7 +46,6 @@ class NoteViewModel(val notesDao: NotesDao) : ViewModel() {
             update(newNote!!)
 
     }
-
 
     /*
     private val allNotes: LiveData<List<Note>>

@@ -1,7 +1,5 @@
 package com.eurofins.mynotesapp
 
-import androidx.lifecycle.LiveData
-
 class NoteRepository(private val notesDao: NotesDao) {
 
     //val allNotes: LiveData<List<Note>> = notesDao.getAllNotes()

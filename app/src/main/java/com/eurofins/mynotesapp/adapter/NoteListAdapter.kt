@@ -10,12 +10,12 @@ import com.eurofins.mynotesapp.Note
 import com.eurofins.mynotesapp.databinding.NotesItemBinding
 
 class NoteListAdapter(val onItemClicked: (Note) -> Unit) :
-ListAdapter<Note, NoteListAdapter.NoteViewHolder>(DiffCallback) {
+    ListAdapter<Note, NoteListAdapter.NoteViewHolder>(DiffCallback) {
 
-    companion object{
-        private val DiffCallback = object : DiffUtil.ItemCallback<Note>(){
+    companion object {
+        private val DiffCallback = object : DiffUtil.ItemCallback<Note>() {
             override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
-                return  oldItem.id == newItem.id
+                return oldItem.id == newItem.id
             }
 
             @SuppressLint("DiffUtilEquals")
@@ -25,8 +25,10 @@ ListAdapter<Note, NoteListAdapter.NoteViewHolder>(DiffCallback) {
 
         }
     }
-    class NoteViewHolder(private val binding: NotesItemBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(note: Note){
+
+    class NoteViewHolder(private val binding: NotesItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(note: Note) {
             binding.noteTitle.text = note.noteTitle
             binding.noteDescription.text = note.noteDescription
         }
@@ -42,7 +44,7 @@ ListAdapter<Note, NoteListAdapter.NoteViewHolder>(DiffCallback) {
             val position = viewHolder.adapterPosition
             onItemClicked(getItem(position))
         }
-        return  viewHolder
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
