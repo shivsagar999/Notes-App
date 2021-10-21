@@ -1,6 +1,7 @@
 package com.eurofins.mynotesapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import kotlin.collections.ArrayList
 class HomeFragment : Fragment() {
 
     private lateinit var arrNotes: List<Note>
+    private  var delNotes: ArrayList<Note> = ArrayList()
     private val homeFragmentViewModel: NoteViewModel by activityViewModels {
         NoteViewModelFactory((activity?.application as NoteApplication).database.getNotesDao())
     }
@@ -39,11 +41,23 @@ class HomeFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        val noteAdapter = NoteListAdapter {
+        val noteAdapter = NoteListAdapter ({
             val action = HomeFragmentDirections.actionHomeFragmentToCreateNoteFragment(
                 id = it.id)
             findNavController().navigate(action)
-        }
+        }, {
+            if(delNotes.contains(it) ){
+            delNotes.remove(it)
+                Log.d("Wagle", "${delNotes}")
+                return@NoteListAdapter false
+            }else{
+
+                delNotes.add(it)
+                Log.d("Wagle", "ff${delNotes}")
+                return@NoteListAdapter true
+            }
+
+        })
         recyclerView.adapter = noteAdapter
 
         lifecycle.coroutineScope.launch {
