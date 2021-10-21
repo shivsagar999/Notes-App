@@ -3,6 +3,7 @@ package com.eurofins.mynotesapp
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
@@ -92,6 +93,19 @@ class HomeFragment : Fragment() {
 
         binding.createNewNoteButton.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_createNoteFragment)
+        }
+    }
+    // Edit From Here
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.delete -> {
+            // User chose the "Settings" item, show the app settings UI...
+            true
+        }
+
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
         }
     }
 }
