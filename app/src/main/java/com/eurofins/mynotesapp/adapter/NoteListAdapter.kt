@@ -2,14 +2,13 @@ package com.eurofins.mynotesapp.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.eurofins.mynotesapp.database.Note
 import com.eurofins.mynotesapp.R
+import com.eurofins.mynotesapp.database.Note
 import com.eurofins.mynotesapp.databinding.NotesItemBinding
 
 class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemLongClicked: (Note) -> Boolean) :
@@ -46,20 +45,18 @@ class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemLongClicked: 
             val position = viewHolder.adapterPosition
             onItemClicked(getItem(position))
         }
-        viewHolder.itemView.setOnLongClickListener(object : View.OnLongClickListener {
-            override fun onLongClick(v: View?): Boolean {
-                val position = viewHolder.adapterPosition
-                val background = onItemLongClicked(getItem(position))
-                if(background){
+        viewHolder.itemView.setOnLongClickListener {
+            val position = viewHolder.adapterPosition
+            val background = onItemLongClicked(getItem(position))
+            if (background) {
                 viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(parent.context,
                     R.color.teal_200))
-                }else{
-                    viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(parent.context,
-                        R.color.light_black))
-                }
-                return true
+            } else {
+                viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(parent.context,
+                    R.color.light_black))
             }
-        })
+            true
+        }
         return viewHolder
     }
 

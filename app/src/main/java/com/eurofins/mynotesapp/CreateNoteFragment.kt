@@ -21,12 +21,12 @@ class CreateNoteFragment : Fragment() {
         NoteViewModelFactory((activity?.application as NoteApplication).database.getNotesDao())
     }
 
-    private var id: Int? = null
+    private var noteId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            id = it.getInt("id").toInt()
+            noteId = it.getInt("id").toInt()
         }
     }
 
@@ -41,8 +41,8 @@ class CreateNoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (id != 0) {
-            createNoteFragmentViewModel.getNote(id!!)
+        if (noteId != 0) {
+            createNoteFragmentViewModel.getNote(noteId!!)
             createNoteFragmentViewModel.note.observe(viewLifecycleOwner,
                 Observer {
                     binding.title.setText(it.noteTitle)
@@ -51,8 +51,7 @@ class CreateNoteFragment : Fragment() {
         }
 
         binding.saveButton.setOnClickListener {
-            if (id != 0) {
-
+            if (noteId != 0) {
                 createNoteFragmentViewModel.updateNote(
                     binding.title.text.toString(),
                     binding.description.text.toString()
@@ -73,11 +72,12 @@ class CreateNoteFragment : Fragment() {
                     findNavController().navigate(R.id.action_createNoteFragment_to_homeFragment)
                 }
             }
-
-            binding.backButton.setOnClickListener {
-                findNavController().navigate(R.id.action_createNoteFragment_to_homeFragment)
-            }
         }
+
+        binding.backButton.setOnClickListener {
+            findNavController().navigate(R.id.action_createNoteFragment_to_homeFragment)
+        }
+
     }
 
     override fun onResume() {

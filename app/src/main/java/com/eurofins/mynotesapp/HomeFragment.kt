@@ -21,7 +21,7 @@ import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
-    private lateinit var arrNotes: List<Note>
+    private lateinit var searchNotes: List<Note>
     private  var delNotes: ArrayList<Note> = ArrayList()
     private val homeFragmentViewModel: NoteViewModel by activityViewModels {
         NoteViewModelFactory((activity?.application as NoteApplication).database.getNotesDao())
@@ -52,7 +52,6 @@ class HomeFragment : Fragment() {
                 Log.d("Wagle", "${delNotes}")
                 return@NoteListAdapter false
             }else{
-
                 delNotes.add(it)
                 Log.d("Wagle", "ff${delNotes}")
                 return@NoteListAdapter true
@@ -64,8 +63,7 @@ class HomeFragment : Fragment() {
         lifecycle.coroutineScope.launch {
             homeFragmentViewModel.getAllNotes().collect {
                 noteAdapter.submitList(it)
-                arrNotes = it
-
+                searchNotes = it
             }
         }
 
@@ -79,7 +77,7 @@ class HomeFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 var newNotes = ArrayList<Note>()
-                for (note in arrNotes) {
+                for (note in searchNotes) {
                     if (note.noteTitle.lowercase(Locale.getDefault())
                             .contains(newText.toString().lowercase(Locale.getDefault()))
                     ) {
@@ -89,7 +87,6 @@ class HomeFragment : Fragment() {
                 noteAdapter.submitList(newNotes)
                 return true
             }
-
         })
 
         binding.createNewNoteButton.setOnClickListener {

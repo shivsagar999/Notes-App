@@ -11,14 +11,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //setUpViews()
+        setUpViews()
     }
 
-    fun setUpViews() {
+    private fun setUpViews() {
         setUpDrawerLayout()
     }
 
-    fun setUpDrawerLayout() {
+    private fun setUpDrawerLayout() {
         setSupportActionBar(findViewById(R.id.appBar))
         actionBarDrawerToggle = ActionBarDrawerToggle(
             this,

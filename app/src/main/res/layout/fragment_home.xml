@@ -23,8 +23,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_width="385dp"
-        android:layout_height="654dp"
+        android:layout_width="@dimen/threeeighyfive_dp"
+        android:layout_height="@dimen/sixfiftyfour_dp"
         android:layout_margin="@dimen/four_dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,8 +34,8 @@
         android:id="@+id/create_new_note_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="@dimen/thirty_dp"
+        android:layout_marginBottom="@dimen/thirty_dp"
         android:contentDescription="@string/button_used_to_create_new_note"
         android:src="@drawable/add_note"
         app:layout_constraintBottom_toBottomOf="parent"
