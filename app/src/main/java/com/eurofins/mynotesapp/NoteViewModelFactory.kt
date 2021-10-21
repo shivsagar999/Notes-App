@@ -2,6 +2,7 @@ package com.eurofins.mynotesapp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.eurofins.mynotesapp.database.NotesDao
 
 class NoteViewModelFactory(
     val notesDao: NotesDao

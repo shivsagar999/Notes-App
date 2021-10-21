@@ -1,4 +1,4 @@
-package com.eurofins.mynotesapp
+package com.eurofins.mynotesapp.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

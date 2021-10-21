@@ -1,4 +1,4 @@
-package com.eurofins.mynotesapp
+package com.eurofins.mynotesapp.database
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

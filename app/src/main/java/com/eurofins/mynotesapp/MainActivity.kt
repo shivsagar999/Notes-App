@@ -14,11 +14,11 @@ class MainActivity : AppCompatActivity() {
         setUpViews()
     }
 
-    fun setUpViews() {
+    private fun setUpViews() {
         setUpDrawerLayout()
     }
 
-    fun setUpDrawerLayout() {
+    private fun setUpDrawerLayout() {
         setSupportActionBar(findViewById(R.id.appBar))
         actionBarDrawerToggle = ActionBarDrawerToggle(
             this,
