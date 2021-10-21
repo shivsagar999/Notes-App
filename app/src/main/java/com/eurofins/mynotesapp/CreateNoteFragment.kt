@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.eurofins.mynotesapp.database.Note
 import com.eurofins.mynotesapp.databinding.FragmentCreateNoteBinding
 
 

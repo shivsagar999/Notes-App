@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.eurofins.mynotesapp.Note
+import com.eurofins.mynotesapp.database.Note
 import com.eurofins.mynotesapp.R
 import com.eurofins.mynotesapp.databinding.NotesItemBinding
 

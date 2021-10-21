@@ -1,4 +1,4 @@
-package com.eurofins.mynotesapp
+package com.eurofins.mynotesapp.database
 
 import android.content.Context
 import androidx.room.Database

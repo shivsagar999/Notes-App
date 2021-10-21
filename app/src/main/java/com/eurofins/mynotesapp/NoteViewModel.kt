@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eurofins.mynotesapp.database.Note
+import com.eurofins.mynotesapp.database.NotesDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
