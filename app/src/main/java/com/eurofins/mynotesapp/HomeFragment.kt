@@ -21,7 +21,7 @@ import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
-    private lateinit var searchNotes: List<Note>
+    private var searchNotes: ArrayList<Note> = ArrayList()
     private  var delNotes: ArrayList<Note> = ArrayList()
     private val homeFragmentViewModel: NoteViewModel by activityViewModels {
         NoteViewModelFactory((activity?.application as NoteApplication).database.getNotesDao())
@@ -63,7 +63,8 @@ class HomeFragment : Fragment() {
         lifecycle.coroutineScope.launch {
             homeFragmentViewModel.getAllNotes().collect {
                 noteAdapter.submitList(it)
-                searchNotes = it
+                searchNotes.clear()
+                searchNotes.addAll(it)
             }
         }
 
