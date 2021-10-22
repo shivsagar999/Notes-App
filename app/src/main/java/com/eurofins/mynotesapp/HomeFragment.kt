@@ -2,10 +2,7 @@ package com.eurofins.mynotesapp
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -28,6 +25,11 @@ class HomeFragment : Fragment() {
         NoteViewModelFactory((activity?.application as NoteApplication).database.getNotesDao())
     }
     private lateinit var binding: FragmentHomeBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -95,11 +97,20 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_createNoteFragment)
         }
     }
+
+
     // Edit From Here
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.d("Wagle", " You are inside homefragments onOptionItemSelected")
+    return  when (item.itemId) {
         R.id.delete -> {
-            // User chose the "Settings" item, show the app settings UI...
-            true
+
+            Log.d("Wagle","You pressed delete man")
+            for (note in delNotes){
+                homeFragmentViewModel.deleteNote(note)
+            }
+            delNotes.clear()
+           true
         }
 
         else -> {
@@ -108,4 +119,7 @@ class HomeFragment : Fragment() {
             super.onOptionsItemSelected(item)
         }
     }
+    }
+
+
 }

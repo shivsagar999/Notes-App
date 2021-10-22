@@ -13,7 +13,7 @@ interface NotesDao {
     suspend fun update(note: Note)
 
     @Delete
-    fun delete(note: Note)
+    suspend fun delete(note: Note)
 
     @Query("select * from notesTable order by id ASC")
     fun getAllNotes(): Flow<List<Note>>

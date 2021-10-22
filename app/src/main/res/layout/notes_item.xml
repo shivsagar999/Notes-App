@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:layout_margin="@dimen/four_dp"-->
-<!--    android:padding="@dimen/four_dp"-->
-<!--    app:cardCornerRadius="@dimen/eight_dp">-->
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/four_dp"
+    android:padding="@dimen/four_dp"
+    app:cardBackgroundColor="@color/light_black"
+    app:cardCornerRadius="@dimen/eight_dp">
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
         android:id="@+id/linear_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/light_black"
+
         android:orientation="vertical"
-        android:layout_margin="@dimen/four_dp"
-        android:padding="@dimen/four_dp"
-        app:cardCornerRadius="@dimen/eight_dp">
+        >
 
         <TextView
             android:id="@+id/note_title"
@@ -44,4 +44,4 @@
     </LinearLayout>
 
 
-<!--</androidx.cardview.widget.CardView>-->
+</androidx.cardview.widget.CardView>

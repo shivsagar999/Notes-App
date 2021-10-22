@@ -14,7 +14,9 @@ class NoteViewModel(val notesDao: NotesDao) : ViewModel() {
     val note : LiveData<Note> get() = _note
 
     fun deleteNote(note: Note) {
-        notesDao.delete(note)
+        viewModelScope.launch {
+            notesDao.delete(note)
+        }
     }
 
     private fun update(note: Note){
