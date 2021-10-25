@@ -1,7 +1,6 @@
 package com.eurofins.mynotesapp.adapter
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -12,9 +11,9 @@ import com.eurofins.mynotesapp.R
 import com.eurofins.mynotesapp.database.Note
 import com.eurofins.mynotesapp.databinding.NotesItemBinding
 
-class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemLongClicked: (Note) -> Boolean) :
+class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemLongClicked: (Note, Int) -> Boolean) :
     ListAdapter<Note, NoteListAdapter.NoteViewHolder>(DiffCallback) {
-        var selected = 0
+
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Note>() {
             override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
@@ -44,39 +43,28 @@ class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemLongClicked: 
 
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
-            if (selected < 1) {
-                onItemClicked(getItem(position))
-                selected = 0
-            } else {
-                val background = onItemLongClicked(getItem(position))
-                if (background) {
-                    viewHolder.itemView.setBackgroundColor(Color.parseColor("#FF03DAC5"))
-                    selected++
-                }else{
-                    viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(parent.context,
-                        R.color.light_black))
-                    selected--
-                }
-            }
+            onItemClicked(getItem(position))
         }
+
         viewHolder.itemView.setOnLongClickListener {
             val position = viewHolder.adapterPosition
-            val background = onItemLongClicked(getItem(position))
+            val background = onItemLongClicked(getItem(position), position)
             if (background) {
-                viewHolder.itemView.setBackgroundColor(Color.parseColor("#FF03DAC5"))
-                selected++
+                viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(parent.context,
+                    R.color.yellow))
             } else {
                 viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(parent.context,
                     R.color.light_black))
-                selected--
             }
             true
         }
         return viewHolder
     }
 
-    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NoteListAdapter.NoteViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
+
+
 
 }

@@ -1,13 +1,16 @@
 package com.eurofins.mynotesapp
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.SearchView
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.eurofins.mynotesapp.adapter.NoteListAdapter
 import com.eurofins.mynotesapp.database.Note
@@ -19,8 +22,10 @@ import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
+    lateinit var recyclerView: RecyclerView
     private var searchNotes: ArrayList<Note> = ArrayList()
-    private  var delNotes: ArrayList<Note> = ArrayList()
+    private var delNotes: ArrayList<Note> = ArrayList()
+
     private val homeFragmentViewModel: NoteViewModel by activityViewModels {
         NoteViewModelFactory((activity?.application as NoteApplication).database.getNotesDao())
     }
@@ -30,6 +35,7 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -41,27 +47,30 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView = binding.recyclerView
+        recyclerView = binding.recyclerView
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        val noteAdapter = NoteListAdapter ({
+        val noteAdapter = NoteListAdapter({
             val action = HomeFragmentDirections.actionHomeFragmentToCreateNoteFragment(
                 id = it.id)
             findNavController().navigate(action)
-        }, {
-            if(delNotes.contains(it) ){
-            delNotes.remove(it)
+        }, { note, position ->
+            if (homeFragmentViewModel.delNotes.contains(note)) {
+                homeFragmentViewModel.removeFromDelete(note, position)
                 Log.d("Wagle", "${delNotes}")
                 return@NoteListAdapter false
-            }else{
-                delNotes.add(it)
+            } else {
+                homeFragmentViewModel.addToDelete(note, position)
                 Log.d("Wagle", "ff${delNotes}")
                 return@NoteListAdapter true
             }
 
+
         })
         recyclerView.adapter = noteAdapter
+
+
 
         lifecycle.coroutineScope.launch {
             homeFragmentViewModel.getAllNotes().collect {
@@ -98,27 +107,38 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        recyclerView.doOnPreDraw {
+            for (pos in homeFragmentViewModel.selectedPosition) {
+                val view =
+                    (recyclerView.layoutManager as StaggeredGridLayoutManager).findViewByPosition(
+                        pos)
+                view?.setBackgroundColor(Color.parseColor("#636161"))
+                Log.d("Wagle", "Your View is ${view}")
+            }
+        }
+    }
 
     // Edit From Here
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         Log.d("Wagle", " You are inside homefragments onOptionItemSelected")
-    return  when (item.itemId) {
-        R.id.delete -> {
-
-            Log.d("Wagle","You pressed delete man")
-            for (note in delNotes){
-                homeFragmentViewModel.deleteNote(note)
+        return when (item.itemId) {
+            R.id.delete -> {
+                Log.d("Wagle", "You pressed delete man")
+                for (note in homeFragmentViewModel.delNotes) {
+                    homeFragmentViewModel.deleteNote(note)
+                }
+                homeFragmentViewModel.delNotes.clear()
+                true
             }
-            delNotes.clear()
-           true
-        }
 
-        else -> {
-            // If we got here, the user's action was not recognized.
-            // Invoke the superclass to handle it.
-            super.onOptionsItemSelected(item)
+            else -> {
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                super.onOptionsItemSelected(item)
+            }
         }
-    }
     }
 
 

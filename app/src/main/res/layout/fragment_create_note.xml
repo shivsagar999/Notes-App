@@ -57,7 +57,6 @@
         android:layout_marginEnd="@dimen/eight_dp"
         android:layout_marginBottom="@dimen/eight_dp"
         android:hint="@string/description"
-        android:inputType="text"
         android:padding="@dimen/four_dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
