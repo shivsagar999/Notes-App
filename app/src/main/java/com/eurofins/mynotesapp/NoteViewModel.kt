@@ -14,7 +14,7 @@ class NoteViewModel(val notesDao: NotesDao) : ViewModel() {
     val note : LiveData<Note> get() = _note
 
     var delNotes: ArrayList<Note> = ArrayList()
-    var selectedPosition: ArrayList<Int> = ArrayList()
+    var selectedPosition = mutableMapOf<Int, Note>()
 
     fun deleteNote(note: Note) {
         viewModelScope.launch {
@@ -53,13 +53,13 @@ class NoteViewModel(val notesDao: NotesDao) : ViewModel() {
 
     fun addToDelete(note: Note,  position: Int){
         delNotes.add(note)
-        selectedPosition.add(position)
+        selectedPosition[position] = note
 
     }
 
     fun removeFromDelete(note: Note, position: Int){
         delNotes.remove(note)
-        selectedPosition.add(position)
+        selectedPosition.remove(position)
     }
 
 }

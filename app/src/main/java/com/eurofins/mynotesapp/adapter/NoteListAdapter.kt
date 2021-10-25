@@ -1,6 +1,8 @@
 package com.eurofins.mynotesapp.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -32,6 +34,9 @@ class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemLongClicked: 
         fun bind(note: Note) {
             binding.noteTitle.text = note.noteTitle
             binding.noteDescription.text = note.noteDescription
+            if(note.isSelected){
+                itemView.setBackgroundColor(Color.parseColor("#887B06"))
+            }
         }
     }
 
@@ -48,14 +53,15 @@ class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemLongClicked: 
 
         viewHolder.itemView.setOnLongClickListener {
             val position = viewHolder.adapterPosition
-            val background = onItemLongClicked(getItem(position), position)
-            if (background) {
-                viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(parent.context,
-                    R.color.yellow))
-            } else {
-                viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(parent.context,
-                    R.color.light_black))
-            }
+            Log.d("Wagle", "Position in adapter ${position}" )
+             onItemLongClicked(getItem(position), position)
+//            if (background) {
+//                viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(parent.context,
+//                    R.color.yellow))
+//            } else {
+//                viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(parent.context,
+//                    R.color.light_black))
+//            }
             true
         }
         return viewHolder
@@ -64,7 +70,5 @@ class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemLongClicked: 
     override fun onBindViewHolder(holder: NoteListAdapter.NoteViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
-
 
 }

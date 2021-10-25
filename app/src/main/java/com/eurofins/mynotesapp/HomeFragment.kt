@@ -1,11 +1,9 @@
 package com.eurofins.mynotesapp
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.SearchView
-import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
@@ -24,7 +22,6 @@ class HomeFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
     private var searchNotes: ArrayList<Note> = ArrayList()
-    private var delNotes: ArrayList<Note> = ArrayList()
 
     private val homeFragmentViewModel: NoteViewModel by activityViewModels {
         NoteViewModelFactory((activity?.application as NoteApplication).database.getNotesDao())
@@ -56,21 +53,17 @@ class HomeFragment : Fragment() {
                 id = it.id)
             findNavController().navigate(action)
         }, { note, position ->
-            if (homeFragmentViewModel.delNotes.contains(note)) {
+            if (homeFragmentViewModel.selectedPosition.contains(position)) {
                 homeFragmentViewModel.removeFromDelete(note, position)
-                Log.d("Wagle", "${delNotes}")
+                Log.d("Wagle", "hh${homeFragmentViewModel.selectedPosition}")
                 return@NoteListAdapter false
             } else {
                 homeFragmentViewModel.addToDelete(note, position)
-                Log.d("Wagle", "ff${delNotes}")
+                Log.d("Wagle", "ff${homeFragmentViewModel.selectedPosition}")
                 return@NoteListAdapter true
             }
-
-
         })
         recyclerView.adapter = noteAdapter
-
-
 
         lifecycle.coroutineScope.launch {
             homeFragmentViewModel.getAllNotes().collect {
@@ -89,7 +82,7 @@ class HomeFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                var newNotes = ArrayList<Note>()
+                val newNotes = ArrayList<Note>()
                 for (note in searchNotes) {
                     if (note.noteTitle.lowercase(Locale.getDefault())
                             .contains(newText.toString().lowercase(Locale.getDefault()))
@@ -107,19 +100,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        recyclerView.doOnPreDraw {
-            for (pos in homeFragmentViewModel.selectedPosition) {
-                val view =
-                    (recyclerView.layoutManager as StaggeredGridLayoutManager).findViewByPosition(
-                        pos)
-                view?.setBackgroundColor(Color.parseColor("#636161"))
-                Log.d("Wagle", "Your View is ${view}")
-            }
-        }
-    }
-
     // Edit From Here
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         Log.d("Wagle", " You are inside homefragments onOptionItemSelected")
@@ -130,6 +110,7 @@ class HomeFragment : Fragment() {
                     homeFragmentViewModel.deleteNote(note)
                 }
                 homeFragmentViewModel.delNotes.clear()
+                homeFragmentViewModel.selectedPosition.clear()
                 true
             }
 
@@ -140,6 +121,4 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
-
 }
