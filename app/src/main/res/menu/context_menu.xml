@@ -2,9 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/selected_size"
+        android:title="0"
+        android:actionLayout="@layout/selected_count"
+        app:showAsAction="always"
+        />
+
+    <item
         android:id="@+id/delete"
         android:icon="@drawable/ic_delete_black"
         android:title="Delete"
         app:showAsAction="ifRoom" />
+
 
 </menu>

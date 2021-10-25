@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.SearchView
-import androidx.core.app.ActivityCompat.invalidateOptionsMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
@@ -18,6 +17,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
+
 
 class HomeFragment : Fragment() {
 
