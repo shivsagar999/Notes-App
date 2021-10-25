@@ -22,7 +22,7 @@ class NoteViewModel(val notesDao: NotesDao) : ViewModel() {
         }
     }
 
-    private fun update(note: Note){
+    fun update(note: Note){
         viewModelScope.launch {
             notesDao.update(note)
         }
@@ -50,6 +50,14 @@ class NoteViewModel(val notesDao: NotesDao) : ViewModel() {
             newNote?.noteDescription = description
             update(newNote!!)
     }
+
+    fun updateIsSelected(){
+        viewModelScope.launch {
+            notesDao.makeIsSelectedFalse()
+        }
+    }
+
+
 
     fun addToDelete(note: Note,  position: Int){
         delNotes.add(note)

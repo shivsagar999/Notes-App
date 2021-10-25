@@ -5,15 +5,13 @@ import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.eurofins.mynotesapp.R
 import com.eurofins.mynotesapp.database.Note
 import com.eurofins.mynotesapp.databinding.NotesItemBinding
 
-class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemLongClicked: (Note, Int) -> Boolean) :
+class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemLongClicked: (Note, Int) -> Unit) :
     ListAdapter<Note, NoteListAdapter.NoteViewHolder>(DiffCallback) {
 
     companion object {
@@ -36,6 +34,8 @@ class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemLongClicked: 
             binding.noteDescription.text = note.noteDescription
             if(note.isSelected){
                 itemView.setBackgroundColor(Color.parseColor("#887B06"))
+            }else{
+                itemView.setBackgroundColor(Color.parseColor("#2B3131"))
             }
         }
     }
@@ -53,21 +53,21 @@ class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemLongClicked: 
 
         viewHolder.itemView.setOnLongClickListener {
             val position = viewHolder.adapterPosition
-            Log.d("Wagle", "Position in adapter ${position}" )
-             onItemLongClicked(getItem(position), position)
+            Log.d("Wagle", "Position in adapter $position" )
+            val background = onItemLongClicked(getItem(position), position)
 //            if (background) {
-//                viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(parent.context,
-//                    R.color.yellow))
+//                getItem(position).isSelected = true
+//                notifyItemChanged(position)
 //            } else {
-//                viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(parent.context,
-//                    R.color.light_black))
+//                getItem(position).isSelected = false
+//                notifyItemChanged(position)
 //            }
             true
         }
         return viewHolder
     }
 
-    override fun onBindViewHolder(holder: NoteListAdapter.NoteViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 

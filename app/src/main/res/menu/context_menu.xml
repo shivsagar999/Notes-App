@@ -3,11 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/delete"
-        android:icon="@drawable/ic_delete"
+        android:icon="@drawable/ic_delete_black"
         android:title="Delete"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/exit"
-        app:showAsAction="never"
-        android:title="Exit"/>
+
 </menu>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.SearchView
+import androidx.core.app.ActivityCompat.invalidateOptionsMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
@@ -22,6 +23,8 @@ class HomeFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
     private var searchNotes: ArrayList<Note> = ArrayList()
+    var isSelected: Boolean = false
+    var actionMode: ActionMode? = null
 
     private val homeFragmentViewModel: NoteViewModel by activityViewModels {
         NoteViewModelFactory((activity?.application as NoteApplication).database.getNotesDao())
@@ -53,15 +56,24 @@ class HomeFragment : Fragment() {
                 id = it.id)
             findNavController().navigate(action)
         }, { note, position ->
+            if(actionMode == null) {
+                actionMode = activity?.startActionMode(actionModeCallback)
+            }
             if (homeFragmentViewModel.selectedPosition.contains(position)) {
+                note.isSelected = false
+                homeFragmentViewModel.update(note)
                 homeFragmentViewModel.removeFromDelete(note, position)
+
                 Log.d("Wagle", "hh${homeFragmentViewModel.selectedPosition}")
-                return@NoteListAdapter false
+
             } else {
+                note.isSelected = true
+                homeFragmentViewModel.update(note)
                 homeFragmentViewModel.addToDelete(note, position)
                 Log.d("Wagle", "ff${homeFragmentViewModel.selectedPosition}")
-                return@NoteListAdapter true
+
             }
+            isSelected = !homeFragmentViewModel.selectedPosition.isEmpty()
         })
         recyclerView.adapter = noteAdapter
 
@@ -100,13 +112,58 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        homeFragmentViewModel.updateIsSelected()
+    }
+
+    private val actionModeCallback = object : ActionMode.Callback {
+        // Called when the action mode is created; startActionMode() was called
+        override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
+            // Inflate a menu resource providing context menu items
+            val inflater: MenuInflater = mode.menuInflater
+            inflater.inflate(R.menu.context_menu, menu)
+            return true
+        }
+
+        // Called each time the action mode is shown. Always called after onCreateActionMode, but
+        // may be called multiple times if the mode is invalidated.
+        override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
+            return false // Return false if nothing is done
+        }
+
+        // Called when the user selects a contextual menu item
+        override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
+            return when (item.itemId) {
+                R.id.delete -> {
+                    for (note in homeFragmentViewModel.selectedPosition.values) {
+                        homeFragmentViewModel.deleteNote(note)
+                    }
+                    homeFragmentViewModel.delNotes.clear()
+                    homeFragmentViewModel.selectedPosition.clear()
+                    mode.finish() // Action picked, so close the CAB
+                    true
+                }
+                else -> false
+            }
+        }
+
+        // Called when the user exits the action mode
+        override fun onDestroyActionMode(mode: ActionMode) {
+            actionMode = null
+            homeFragmentViewModel.updateIsSelected()
+            homeFragmentViewModel.selectedPosition.clear()
+        }
+    }
+
+
     // Edit From Here
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         Log.d("Wagle", " You are inside homefragments onOptionItemSelected")
         return when (item.itemId) {
             R.id.delete -> {
                 Log.d("Wagle", "You pressed delete man")
-                for (note in homeFragmentViewModel.delNotes) {
+                for (note in homeFragmentViewModel.selectedPosition.values) {
                     homeFragmentViewModel.deleteNote(note)
                 }
                 homeFragmentViewModel.delNotes.clear()

@@ -6,13 +6,16 @@
         <entry key="..\:/Users/F2WZ/AndroidStudioProjects/Notes-App/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/F2WZ/AndroidStudioProjects/Notes-App/app/src/main/res/layout/fragment_create_note.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/drawable/add_note.xml" value="0.2703125" />
+        <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/drawable/trash.xml" value="0.2703125" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/layout/activity_main.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/layout/fragment_create_note.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/layout/fragment_home.xml" value="0.20228384991843393" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/layout/notes_item.xml" value="0.4" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/layout/s.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/menu/context_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/menu/menu.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/menu/nav_drawer.xml" value="0.12291666666666666" />
+        <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/menu/overflow_menu.xml" value="0.13020833333333334" />
       </map>
     </option>
   </component>
