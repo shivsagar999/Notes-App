@@ -117,7 +117,7 @@ class HomeFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        homeFragmentViewModel.updateIsSelected()
+//        homeFragmentViewModel.updateIsSelected()
     }
 
     private val actionModeCallback = object : ActionMode.Callback {
