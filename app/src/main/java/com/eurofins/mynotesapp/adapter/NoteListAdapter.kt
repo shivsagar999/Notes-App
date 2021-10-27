@@ -50,7 +50,6 @@ class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemSelected: (No
 
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
-
             if(isSelected){
                 onItemSelected(getItem(position), position)
 
@@ -63,7 +62,6 @@ class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemSelected: (No
             val position = viewHolder.adapterPosition
             Log.d("Wagle", "Position in adapter $position" )
             onItemSelected(getItem(position), position)
-
             true
         }
         return viewHolder
