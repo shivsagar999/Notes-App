@@ -34,11 +34,11 @@ class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemSelected: (No
         fun bind(note: Note) {
             binding.noteTitle.text = note.noteTitle
             binding.noteDescription.text = note.noteDescription
-            if(note.isSelected){
-                itemView.setBackgroundColor(Color.parseColor("#887B06"))
-            }else{
-                itemView.setBackgroundColor(Color.parseColor("#2B3131"))
-            }
+//            if(note.isSelected){
+//                itemView.setBackgroundColor(Color.parseColor("#887B06"))
+//            }else{
+//                itemView.setBackgroundColor(Color.parseColor("#2B3131"))
+//            }
         }
     }
 

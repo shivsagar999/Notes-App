@@ -1,10 +1,13 @@
 package com.eurofins.mynotesapp
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
@@ -17,11 +20,14 @@ import com.eurofins.mynotesapp.databinding.FragmentHomeBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
+
 import kotlin.collections.ArrayList
+import android.view.ViewTreeObserver
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 
 
 class HomeFragment : Fragment() {
-
+    var k = true
     lateinit var recyclerView: RecyclerView
     lateinit var noteAdapter: NoteListAdapter
     private var searchNotes: ArrayList<Note> = ArrayList()
@@ -45,10 +51,20 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
+
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        if(homeFragmentViewModel.selectedPosition.size>0) {
+            if (actionMode == null) {
+                actionMode = activity?.startActionMode(actionModeCallback)
+            }
+        }
+
         recyclerView = binding.recyclerView
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager =
@@ -61,17 +77,18 @@ class HomeFragment : Fragment() {
             if (actionMode == null) {
                 actionMode = activity?.startActionMode(actionModeCallback)
             }
-            if (homeFragmentViewModel.selectedPosition.contains(position)) {
-                note.isSelected = false
-                homeFragmentViewModel.update(note)
-                homeFragmentViewModel.removeFromDelete(note, position)
 
+            if (homeFragmentViewModel.selectedPosition.contains(position)) {
+
+                homeFragmentViewModel.removeFromDelete(note, position)
+                val view = recyclerView.layoutManager?.findViewByPosition(position)
+                view?.setBackgroundColor(Color.parseColor("#2B3131"))
                 Log.d("Wagle", "hh${homeFragmentViewModel.selectedPosition}")
 
             } else {
-                note.isSelected = true
-                homeFragmentViewModel.update(note)
                 homeFragmentViewModel.addToDelete(note, position)
+                val view = recyclerView.layoutManager?.findViewByPosition(position)
+                view?.setBackgroundColor(Color.parseColor("#887B06"))
                 Log.d("Wagle", "ff${homeFragmentViewModel.selectedPosition}")
 
             }
@@ -93,11 +110,21 @@ class HomeFragment : Fragment() {
             }
         }
 
-
         binding.createNewNoteButton.setOnClickListener {
             actionMode?.finish()
             findNavController().navigate(R.id.action_homeFragment_to_createNoteFragment)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(OnGlobalLayoutListener {
+            for (pos in homeFragmentViewModel.selectedPosition.keys) {
+                val view = recyclerView.layoutManager?.findViewByPosition(pos)
+                view?.setBackgroundColor(Color.parseColor("#887B06"))
+                Log.d("Wagle", "Your View is ${view}")
+            }
+        })
     }
 
     override fun onDestroy() {
@@ -137,11 +164,23 @@ class HomeFragment : Fragment() {
             }
         }
 
+
+
         // Called when the user exits the action mode
         override fun onDestroyActionMode(mode: ActionMode) {
             actionMode = null
-            homeFragmentViewModel.updateIsSelected()
+            noteAdapter.isSelected = false
+            unselectAllNotes(homeFragmentViewModel.selectedPosition.keys)
             homeFragmentViewModel.selectedPosition.clear()
+
+        }
+    }
+
+    fun unselectAllNotes(keys: MutableSet<Int>){
+        for (pos in keys) {
+            val view = recyclerView.layoutManager?.findViewByPosition(pos)
+            view?.setBackgroundColor(Color.parseColor("#2B3131"))
+            Log.d("Wagle", "Unselect View is ${view}")
         }
     }
 
@@ -192,3 +231,5 @@ class HomeFragment : Fragment() {
         }
     }
 }
+
+
