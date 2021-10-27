@@ -73,7 +73,10 @@ class HomeFragment : Fragment() {
                 Log.d("Wagle", "ff${homeFragmentViewModel.selectedPosition}")
 
             }
-            isSelected = !homeFragmentViewModel.selectedPosition.isEmpty()
+//            isSelected = !homeFragmentViewModel.selectedPosition.isEmpty()
+            if(homeFragmentViewModel.selectedPosition.isEmpty()){
+                actionMode?.finish()
+            }
         })
         recyclerView.adapter = noteAdapter
 
