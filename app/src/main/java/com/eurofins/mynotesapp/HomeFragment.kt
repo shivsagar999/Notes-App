@@ -1,9 +1,10 @@
 package com.eurofins.mynotesapp
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
@@ -22,6 +23,7 @@ import kotlin.collections.ArrayList
 class HomeFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
+    lateinit var noteAdapter: NoteListAdapter
     private var searchNotes: ArrayList<Note> = ArrayList()
     var isSelected: Boolean = false
     var actionMode: ActionMode? = null
@@ -51,12 +53,12 @@ class HomeFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        val noteAdapter = NoteListAdapter({
+        noteAdapter = NoteListAdapter({
             val action = HomeFragmentDirections.actionHomeFragmentToCreateNoteFragment(
                 id = it.id)
             findNavController().navigate(action)
         }, { note, position ->
-            if(actionMode == null) {
+            if (actionMode == null) {
                 actionMode = activity?.startActionMode(actionModeCallback)
             }
             if (homeFragmentViewModel.selectedPosition.contains(position)) {
@@ -73,9 +75,12 @@ class HomeFragment : Fragment() {
                 Log.d("Wagle", "ff${homeFragmentViewModel.selectedPosition}")
 
             }
-//            isSelected = !homeFragmentViewModel.selectedPosition.isEmpty()
-            if(homeFragmentViewModel.selectedPosition.isEmpty()){
+
+            if (homeFragmentViewModel.selectedPosition.isEmpty()) {
                 actionMode?.finish()
+                noteAdapter.isSelected = false
+            }else{
+                noteAdapter.isSelected = true
             }
         })
         recyclerView.adapter = noteAdapter
@@ -88,27 +93,6 @@ class HomeFragment : Fragment() {
             }
         }
 
-        val searchView = binding.searchView
-
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                val newNotes = ArrayList<Note>()
-                for (note in searchNotes) {
-                    if (note.noteTitle.lowercase(Locale.getDefault())
-                            .contains(newText.toString().lowercase(Locale.getDefault()))
-                    ) {
-                        newNotes.add(note)
-                    }
-                }
-                noteAdapter.submitList(newNotes)
-                return true
-            }
-        })
 
         binding.createNewNoteButton.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_createNoteFragment)
@@ -144,6 +128,7 @@ class HomeFragment : Fragment() {
                     }
                     homeFragmentViewModel.delNotes.clear()
                     homeFragmentViewModel.selectedPosition.clear()
+                    noteAdapter.isSelected = false
                     mode.finish() // Action picked, so close the CAB
                     true
                 }
@@ -159,10 +144,38 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        val searchItem = menu.findItem(R.id.search_view)
+        val searchView = searchItem?.actionView as SearchView
+        searchView.setBackgroundColor(Color.WHITE)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val newNotes = ArrayList<Note>()
+                for (note in searchNotes) {
+                    if (note.noteTitle.lowercase(Locale.getDefault())
+                            .contains(newText.toString().lowercase(Locale.getDefault()))
+                    ) {
+                        newNotes.add(note)
+                    }
+                }
+                noteAdapter.submitList(newNotes)
+                return true
+            }
+        })
+
+
+    }
+
 
     // Edit From Here
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Log.d("Wagle", " You are inside homefragments onOptionItemSelected")
+
         return when (item.itemId) {
             R.id.delete -> {
                 Log.d("Wagle", "You pressed delete man")

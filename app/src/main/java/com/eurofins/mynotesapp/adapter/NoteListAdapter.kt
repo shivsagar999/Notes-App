@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.eurofins.mynotesapp.database.Note
 import com.eurofins.mynotesapp.databinding.NotesItemBinding
 
-class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemLongClicked: (Note, Int) -> Unit) :
+class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemSelected: (Note, Int) -> Unit) :
     ListAdapter<Note, NoteListAdapter.NoteViewHolder>(DiffCallback) {
+
+    var isSelected: Boolean = false
 
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Note>() {
@@ -48,20 +50,20 @@ class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemLongClicked: 
 
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
-            onItemClicked(getItem(position))
+
+            if(isSelected){
+                onItemSelected(getItem(position), position)
+
+            }else{
+                onItemClicked(getItem(position))
+            }
         }
 
         viewHolder.itemView.setOnLongClickListener {
             val position = viewHolder.adapterPosition
             Log.d("Wagle", "Position in adapter $position" )
-            val background = onItemLongClicked(getItem(position), position)
-//            if (background) {
-//                getItem(position).isSelected = true
-//                notifyItemChanged(position)
-//            } else {
-//                getItem(position).isSelected = false
-//                notifyItemChanged(position)
-//            }
+            onItemSelected(getItem(position), position)
+
             true
         }
         return viewHolder

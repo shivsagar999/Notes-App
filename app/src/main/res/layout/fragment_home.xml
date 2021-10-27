@@ -7,20 +7,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/light_black"
-        android:inputType="text"
-        android:textColor = "@color/white"
-        android:textColorHint = "@color/white"
-        app:layout_constraintBottom_toTopOf="@id/recycler_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:queryHint="@string/title"
-        app:searchHintIcon="@drawable/search"
-        app:searchIcon="@drawable/search" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

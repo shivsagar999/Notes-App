@@ -7,6 +7,16 @@
 <!--        android:title="Delete"-->
 <!--        app:showAsAction="ifRoom" />-->
     <item
+        android:id="@+id/search_view"
+        android:icon="@drawable/search"
+        app:showAsAction="collapseActionView|ifRoom"
+        android:title="@string/title"
+        android:background = "@color/white"
+        android:editTextColor = "@color/white"
+        android:textColorHint = "@color/white"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+
+    <item
         android:id="@+id/exit"
         app:showAsAction="never"
         android:title="Exit"/>
