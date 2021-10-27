@@ -79,7 +79,7 @@ class HomeFragment : Fragment() {
             if (homeFragmentViewModel.selectedPosition.isEmpty()) {
                 actionMode?.finish()
                 noteAdapter.isSelected = false
-            }else{
+            } else {
                 noteAdapter.isSelected = true
             }
         })
@@ -95,13 +95,14 @@ class HomeFragment : Fragment() {
 
 
         binding.createNewNoteButton.setOnClickListener {
+            actionMode?.finish()
             findNavController().navigate(R.id.action_homeFragment_to_createNoteFragment)
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-//        homeFragmentViewModel.updateIsSelected()
+      homeFragmentViewModel.updateIsSelected()
     }
 
     private val actionModeCallback = object : ActionMode.Callback {
@@ -168,11 +169,7 @@ class HomeFragment : Fragment() {
                 return true
             }
         })
-
-
     }
-
-
     // Edit From Here
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
