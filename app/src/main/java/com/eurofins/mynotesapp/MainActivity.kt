@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -18,14 +19,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setUpViews()
 
-//        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
 //        val navHostFragment = supportFragmentManager
 //            .findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
 //        val navController = navHostFragment.navController
-//        navigationView.setNavigationItemSelectedListener {
+        navigationView.setNavigationItemSelectedListener {
 //            navController.navigate(R.id.trashFragment)
-//            return@setNavigationItemSelectedListener true
-//        }
+            Toast.makeText(this , R.string.coming_soon, Toast.LENGTH_SHORT).show()
+            return@setNavigationItemSelectedListener true
+        }
     }
 
     private fun setUpViews() {
