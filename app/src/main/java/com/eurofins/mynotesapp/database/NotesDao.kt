@@ -21,7 +21,7 @@ interface NotesDao {
     @Query("SELECT * FROM notesTable WHERE id =:id")
     suspend fun getNote(id: Int): Note
 
-    @Query("UPDATE  notesTable SET `Is Selected` = \"false\" ")
-    suspend fun makeIsSelectedFalse()
+    @Query("select * from notesTable WHERE isDeleted = 1 order by id ASC")
+    fun getAllTrashNotes(): Flow<List<Note>>
 
 }

@@ -1,13 +1,10 @@
 package com.eurofins.mynotesapp
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
@@ -17,21 +14,19 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.eurofins.mynotesapp.adapter.NoteListAdapter
 import com.eurofins.mynotesapp.database.Note
 import com.eurofins.mynotesapp.databinding.FragmentHomeBinding
+
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
-
 import kotlin.collections.ArrayList
-import android.view.ViewTreeObserver
-import android.view.ViewTreeObserver.OnGlobalLayoutListener
 
 
 class HomeFragment : Fragment() {
-    var k = true
+
     lateinit var recyclerView: RecyclerView
     lateinit var noteAdapter: NoteListAdapter
     private var searchNotes: ArrayList<Note> = ArrayList()
-    var isSelected: Boolean = false
+
     var actionMode: ActionMode? = null
 
     private val homeFragmentViewModel: NoteViewModel by activityViewModels {
@@ -47,19 +42,17 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        if(homeFragmentViewModel.selectedPosition.size>0) {
+        if (homeFragmentViewModel.selectedPosition.isNotEmpty()) {
             if (actionMode == null) {
                 actionMode = activity?.startActionMode(actionModeCallback)
             }
@@ -74,31 +67,29 @@ class HomeFragment : Fragment() {
                 id = it.id)
             findNavController().navigate(action)
         }, { note, position ->
+
             if (actionMode == null) {
                 actionMode = activity?.startActionMode(actionModeCallback)
             }
 
             if (homeFragmentViewModel.selectedPosition.contains(position)) {
-
                 homeFragmentViewModel.removeFromDelete(note, position)
                 val view = recyclerView.layoutManager?.findViewByPosition(position)
                 view?.setBackgroundColor(Color.parseColor("#2B3131"))
-                Log.d("Wagle", "hh${homeFragmentViewModel.selectedPosition}")
-
             } else {
                 homeFragmentViewModel.addToDelete(note, position)
                 val view = recyclerView.layoutManager?.findViewByPosition(position)
                 view?.setBackgroundColor(Color.parseColor("#887B06"))
-                Log.d("Wagle", "ff${homeFragmentViewModel.selectedPosition}")
-
             }
 
             if (homeFragmentViewModel.selectedPosition.isEmpty()) {
                 actionMode?.finish()
                 noteAdapter.isSelected = false
             } else {
+
                 noteAdapter.isSelected = true
             }
+            actionMode?.invalidate()
         })
         recyclerView.adapter = noteAdapter
 
@@ -114,23 +105,21 @@ class HomeFragment : Fragment() {
             actionMode?.finish()
             findNavController().navigate(R.id.action_homeFragment_to_createNoteFragment)
         }
+
+
     }
 
     override fun onStart() {
         super.onStart()
-        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(OnGlobalLayoutListener {
+        recyclerView.viewTreeObserver.addOnGlobalLayoutListener {
             for (pos in homeFragmentViewModel.selectedPosition.keys) {
                 val view = recyclerView.layoutManager?.findViewByPosition(pos)
                 view?.setBackgroundColor(Color.parseColor("#887B06"))
-                Log.d("Wagle", "Your View is ${view}")
+                Log.d("Wagle", "Your View is $view")
             }
-        })
+        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-      homeFragmentViewModel.updateIsSelected()
-    }
 
     private val actionModeCallback = object : ActionMode.Callback {
         // Called when the action mode is created; startActionMode() was called
@@ -144,7 +133,13 @@ class HomeFragment : Fragment() {
         // Called each time the action mode is shown. Always called after onCreateActionMode, but
         // may be called multiple times if the mode is invalidated.
         override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
-            return false // Return false if nothing is done
+             val menuItem = menu.findItem(R.id.selected_size)
+            if (homeFragmentViewModel.selectedPosition.isEmpty()) {
+                menuItem.title = "0"
+            } else {
+                menuItem.title = homeFragmentViewModel.selectedPosition.size.toString()
+            }
+            return true
         }
 
         // Called when the user selects a contextual menu item
@@ -165,7 +160,6 @@ class HomeFragment : Fragment() {
         }
 
 
-
         // Called when the user exits the action mode
         override fun onDestroyActionMode(mode: ActionMode) {
             actionMode = null
@@ -176,11 +170,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun unselectAllNotes(keys: MutableSet<Int>){
+    fun unselectAllNotes(keys: MutableSet<Int>) {
         for (pos in keys) {
             val view = recyclerView.layoutManager?.findViewByPosition(pos)
             view?.setBackgroundColor(Color.parseColor("#2B3131"))
-            Log.d("Wagle", "Unselect View is ${view}")
+            Log.d("Wagle", "Unselect View is $view")
         }
     }
 
@@ -192,7 +186,8 @@ class HomeFragment : Fragment() {
         searchView.setBackgroundColor(Color.WHITE)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                TODO("Not yet implemented")
+                searchView.clearFocus()
+                return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
@@ -209,27 +204,8 @@ class HomeFragment : Fragment() {
             }
         })
     }
-    // Edit From Here
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        return when (item.itemId) {
-            R.id.delete -> {
-                Log.d("Wagle", "You pressed delete man")
-                for (note in homeFragmentViewModel.selectedPosition.values) {
-                    homeFragmentViewModel.deleteNote(note)
-                }
-                homeFragmentViewModel.delNotes.clear()
-                homeFragmentViewModel.selectedPosition.clear()
-                true
-            }
 
-            else -> {
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                super.onOptionsItemSelected(item)
-            }
-        }
-    }
 }
 
 

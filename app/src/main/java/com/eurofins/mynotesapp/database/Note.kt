@@ -12,6 +12,7 @@ class Note(
 ){
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
-    @ColumnInfo(name = "Is Selected")
-    var isSelected: Boolean = false
+    @ColumnInfo
+    var isDeleted: Boolean = false
+
 }

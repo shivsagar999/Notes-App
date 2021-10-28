@@ -51,10 +51,15 @@ class NoteViewModel(val notesDao: NotesDao) : ViewModel() {
             update(newNote!!)
     }
 
-    fun updateIsSelected(){
+    fun updateIsDeleted(note: Note){
+        note.isDeleted = true
         viewModelScope.launch {
-            notesDao.makeIsSelectedFalse()
+            notesDao.update(note)
         }
+    }
+
+    fun getAllDeletedNotes(): Flow<List<Note>>{
+        return notesDao.getAllTrashNotes()
     }
 
 

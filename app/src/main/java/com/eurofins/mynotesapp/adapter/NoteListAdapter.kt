@@ -1,7 +1,6 @@
 package com.eurofins.mynotesapp.adapter
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemSelected: (No
     ListAdapter<Note, NoteListAdapter.NoteViewHolder>(DiffCallback) {
 
     var isSelected: Boolean = false
+
 
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Note>() {
@@ -34,11 +34,6 @@ class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemSelected: (No
         fun bind(note: Note) {
             binding.noteTitle.text = note.noteTitle
             binding.noteDescription.text = note.noteDescription
-//            if(note.isSelected){
-//                itemView.setBackgroundColor(Color.parseColor("#887B06"))
-//            }else{
-//                itemView.setBackgroundColor(Color.parseColor("#2B3131"))
-//            }
         }
     }
 

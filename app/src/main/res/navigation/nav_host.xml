@@ -28,4 +28,9 @@
             android:name="id"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/trashFragment"
+        android:name="com.eurofins.mynotesapp.TrashFragment"
+        android:label="fragment_trash"
+        tools:layout="@layout/fragment_trash" />
 </navigation>

@@ -7,7 +7,5 @@
     <dimen name="sixteen_dp">16dp</dimen>
     <dimen name="twenty_sp">20sp</dimen>
     <dimen name="fourteen_sp">14sp</dimen>
-    <dimen name="threeeighyfive_dp">385dp</dimen>
-    <dimen name="sixfiftyfour_dp">654dp</dimen>
     <dimen name="thirty_dp">30dp</dimen>
 </resources>
