@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
@@ -26,18 +26,45 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent" />
 
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottom_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+
+            app:backgroundTint="@color/light_black"
+            app:fabAlignmentMode="end"
+            app:fabCradleMargin="@dimen/eight_dp"
+            app:fabCradleRoundedCornerRadius="@dimen/thirty_dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/paint_brush"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/white_brush"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/create_new_note_button"
-            android:layout_width="65dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/thirty_dp"
             android:layout_marginBottom="@dimen/thirty_dp"
             android:contentDescription="@string/button_used_to_create_new_note"
             android:src="@drawable/add_note"
+            app:layout_anchor="@id/bottom_appbar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:rippleColor="@color/light_black" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </LinearLayout>

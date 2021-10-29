@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase
 abstract class NoteDatabase : RoomDatabase() {
 
     abstract fun getNotesDao(): NotesDao
-    abstract fun getTrashNotesDao(): TrashNotesDao
+
 
     companion object {
         @Volatile

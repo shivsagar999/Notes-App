@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -106,6 +107,9 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_createNoteFragment)
         }
 
+        binding.paintBrush.setOnClickListener {
+            Toast.makeText(context, R.string.coming_soon, Toast.LENGTH_SHORT).show()
+        }
 
 
     }

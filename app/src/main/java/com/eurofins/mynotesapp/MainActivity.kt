@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         navigationView.setNavigationItemSelectedListener {
             navController.navigate(R.id.action_homeFragment_to_trashFragment)
-            Toast.makeText(this , R.string.coming_soon, Toast.LENGTH_SHORT).show()
+
             return@setNavigationItemSelectedListener true
         }
     }
