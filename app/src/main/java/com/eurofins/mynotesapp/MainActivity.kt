@@ -20,11 +20,11 @@ class MainActivity : AppCompatActivity() {
         setUpViews()
 
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
-//        val navHostFragment = supportFragmentManager
-//            .findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
-//        val navController = navHostFragment.navController
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
+        val navController = navHostFragment.navController
         navigationView.setNavigationItemSelectedListener {
-//            navController.navigate(R.id.trashFragment)
+            navController.navigate(R.id.action_homeFragment_to_trashFragment)
             Toast.makeText(this , R.string.coming_soon, Toast.LENGTH_SHORT).show()
             return@setNavigationItemSelectedListener true
         }

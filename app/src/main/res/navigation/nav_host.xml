@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_createNoteFragment"
             app:destination="@id/createNoteFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_trashFragment"
+            app:destination="@id/trashFragment" />
     </fragment>
     <fragment
         android:id="@+id/createNoteFragment"

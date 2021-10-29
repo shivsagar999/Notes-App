@@ -21,7 +21,16 @@ interface NotesDao {
     @Query("SELECT * FROM notesTable WHERE id =:id")
     suspend fun getNote(id: Int): Note
 
-    @Query("select * from notesTable WHERE isDeleted = 1 order by id ASC")
-    fun getAllTrashNotes(): Flow<List<Note>>
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertIntoTrashTable(trashNote: TrashNote)
+
+    @Update
+    suspend fun updateTrashTable(trashNote: TrashNote)
+
+    @Delete
+    suspend fun deleteFromTrashTable(trashNote: TrashNote)
+
+    @Query("SELECT * from trashTable order by id ASC")
+    fun getAllTrashNotes(): Flow<List<TrashNote>>
 
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eurofins.mynotesapp.database.Note
 import com.eurofins.mynotesapp.database.NotesDao
+import com.eurofins.mynotesapp.database.TrashNote
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -22,7 +23,7 @@ class NoteViewModel(val notesDao: NotesDao) : ViewModel() {
         }
     }
 
-    fun update(note: Note){
+    fun updateNote(note: Note){
         viewModelScope.launch {
             notesDao.update(note)
         }
@@ -32,6 +33,13 @@ class NoteViewModel(val notesDao: NotesDao) : ViewModel() {
         viewModelScope.launch {
             notesDao.insert(note)
         }
+    }
+
+    fun insertTrashNote(note: Note){
+       val trashNote =  TrashNote(note.noteTitle, note.noteDescription, note.timeStamp)
+
+        viewModelScope.launch {notesDao.insertIntoTrashTable(trashNote)  }
+
     }
 
     fun getAllNotes(): Flow<List<Note>>{
@@ -48,20 +56,8 @@ class NoteViewModel(val notesDao: NotesDao) : ViewModel() {
             var newNote = _note.value
             newNote?.noteTitle = title
             newNote?.noteDescription = description
-            update(newNote!!)
+        updateNote(newNote!!)
     }
-
-    fun updateIsDeleted(note: Note){
-        note.isDeleted = true
-        viewModelScope.launch {
-            notesDao.update(note)
-        }
-    }
-
-    fun getAllDeletedNotes(): Flow<List<Note>>{
-        return notesDao.getAllTrashNotes()
-    }
-
 
 
     fun addToDelete(note: Note,  position: Int){

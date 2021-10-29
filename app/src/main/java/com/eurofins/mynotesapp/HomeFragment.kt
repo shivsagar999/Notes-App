@@ -107,6 +107,7 @@ class HomeFragment : Fragment() {
         }
 
 
+
     }
 
     override fun onStart() {
@@ -148,6 +149,7 @@ class HomeFragment : Fragment() {
                 R.id.delete -> {
                     for (note in homeFragmentViewModel.selectedPosition.values) {
                         homeFragmentViewModel.deleteNote(note)
+                        homeFragmentViewModel.insertTrashNote(note)
                     }
                     homeFragmentViewModel.delNotes.clear()
                     homeFragmentViewModel.selectedPosition.clear()
