@@ -2,15 +2,14 @@ package com.eurofins.mynotesapp
 
 import android.os.Bundle
 import android.view.ActionMode
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.eurofins.mynotesapp.adapter.NoteListAdapter
 import com.eurofins.mynotesapp.adapter.TrashNoteListAdapter
 import com.eurofins.mynotesapp.databinding.FragmentTrashBinding
 import com.eurofins.mynotesapp.trash.TrashViewModel

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/selected_size"
-        android:title="0"
+        android:title="@string/_0"
         app:itemTextColor = "@color/white"
         app:showAsAction="always"
         />
@@ -11,7 +11,7 @@
     <item
         android:id="@+id/delete"
         android:icon="@drawable/trash"
-        android:title="Delete"
+        android:title="@string/delete"
         app:showAsAction="ifRoom" />
 
 

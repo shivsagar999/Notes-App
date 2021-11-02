@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.eurofins.mynotesapp.bottomsheet.BottomSheetFragment
 import com.eurofins.mynotesapp.database.Note
 import com.eurofins.mynotesapp.databinding.FragmentCreateNoteBinding
 
@@ -76,6 +77,13 @@ class CreateNoteFragment : Fragment() {
 
         binding.backButton.setOnClickListener {
             findNavController().navigate(R.id.action_createNoteFragment_to_homeFragment)
+        }
+
+        val bottomSheet = BottomSheetFragment()
+
+
+        binding.bottomSheetDrawer.setOnClickListener {
+            bottomSheet.show(parentFragmentManager, BottomSheetFragment.TAG)
         }
 
     }

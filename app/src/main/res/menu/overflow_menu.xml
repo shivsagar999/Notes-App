@@ -19,5 +19,5 @@
     <item
         android:id="@+id/exit"
         app:showAsAction="never"
-        android:title="Exit"/>
+        android:title="@string/exit"/>
 </menu>

@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.eurofins.mynotesapp.adapter.NoteListAdapter
 import com.eurofins.mynotesapp.database.Note
 import com.eurofins.mynotesapp.databinding.FragmentHomeBinding
-
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
@@ -138,7 +137,7 @@ class HomeFragment : Fragment() {
         // Called each time the action mode is shown. Always called after onCreateActionMode, but
         // may be called multiple times if the mode is invalidated.
         override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
-             val menuItem = menu.findItem(R.id.selected_size)
+            val menuItem = menu.findItem(R.id.selected_size)
             if (homeFragmentViewModel.selectedPosition.isEmpty()) {
                 menuItem.title = "0"
             } else {
