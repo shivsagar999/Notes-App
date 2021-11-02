@@ -10,12 +10,21 @@ import kotlinx.coroutines.launch
 
 class TrashViewModel(val notesDao: NotesDao): ViewModel() {
 
+    var selectedPosition = mutableMapOf<Int, TrashNote>()
+
+
     fun addNoteToNotesTable(trashNote: TrashNote)
     {   var note = Note(trashNote.noteTitle, trashNote.noteDescription,
                         trashNote.timeStamp)
 
         viewModelScope.launch {
             notesDao.insert(note)
+        }
+    }
+
+    fun deleteTrashNote(trashNote: TrashNote){
+        viewModelScope.launch {
+            notesDao.deleteFromTrashTable(trashNote)
         }
     }
 

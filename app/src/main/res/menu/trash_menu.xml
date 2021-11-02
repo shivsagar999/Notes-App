@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/selected_size"
+        android:title="@string/_0"
+        app:itemTextColor="@color/white"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/restore"
+        android:icon="@drawable/restore_white"
+        android:title="Restore"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/delete"
+        android:icon="@drawable/trash"
+        android:title="@string/delete"
+        app:showAsAction="ifRoom" />
+</menu>

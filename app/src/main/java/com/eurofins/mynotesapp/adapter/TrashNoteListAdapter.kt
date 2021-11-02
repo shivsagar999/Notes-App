@@ -1,15 +1,21 @@
 package com.eurofins.mynotesapp.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.eurofins.mynotesapp.database.Note
 import com.eurofins.mynotesapp.database.TrashNote
 import com.eurofins.mynotesapp.databinding.NotesItemBinding
 
-class TrashNoteListAdapter: ListAdapter<TrashNote, TrashNoteListAdapter.TrashNoteViewHolder>(DiffCallBack) {
+class TrashNoteListAdapter(val onItemClicked: (TrashNote) -> Unit,
+                           val onItemSelected: (TrashNote, Int) -> Unit):
+    ListAdapter<TrashNote, TrashNoteListAdapter.TrashNoteViewHolder>(DiffCallBack) {
+
+    var isSelected = false
 
     companion object{
         val DiffCallBack = object: DiffUtil.ItemCallback<TrashNote>() {
@@ -38,6 +44,23 @@ class TrashNoteListAdapter: ListAdapter<TrashNote, TrashNoteListAdapter.TrashNot
             LayoutInflater.from(parent.context),
             parent,
             false))
+
+        viewHolder.itemView.setOnClickListener {
+            val position = viewHolder.adapterPosition
+            if(isSelected){
+                onItemSelected(getItem(position), position)
+
+            }else{
+                onItemClicked(getItem(position))
+            }
+        }
+
+        viewHolder.itemView.setOnLongClickListener {
+            val position = viewHolder.adapterPosition
+            Log.d("Wagle", "Position in adapter $position" )
+            onItemSelected(getItem(position), position)
+            true
+        }
 
         return viewHolder
     }
