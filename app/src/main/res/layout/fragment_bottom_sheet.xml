@@ -8,12 +8,12 @@
     tools:context=".bottomsheet.BottomSheetFragment">
 
     <LinearLayout
+        android:id="@+id/model_bottom_sheet"
         style="@style/BottomSheetItem"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        app:shapeAppearance="@style/ShapeAppearance.MyNotesApp.MediumComponents">
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <TextView
             android:layout_width="wrap_content"
@@ -23,6 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:text="@string/brush" />
 
     </LinearLayout>

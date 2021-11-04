@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/group_trash"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/trash"
+            android:icon="@drawable/trash"
+            android:title="@string/trash" />
 
-    <item
-        android:id="@+id/trash"
-        android:title="@string/trash"
-        android:icon="@drawable/trash"/>
+    </group>
+
+    <group
+        android:id="@+id/group_setting"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/settings_white"
+            android:title="@string/settings" />
+
+    </group>
+
 
 </menu>

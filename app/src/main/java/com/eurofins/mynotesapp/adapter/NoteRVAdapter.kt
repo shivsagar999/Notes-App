@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.eurofins.mynotesapp.R
 import com.eurofins.mynotesapp.database.Note
 
-class NoteRVAdapter(val onItemClicked: (Note) -> Unit, val onItemLongClicked: (Note, Int) -> Boolean):
+class NoteRVAdapter<T>(val onItemClicked: (T) -> Unit, val onItemLongClicked: (T, Int) -> Boolean):
     RecyclerView.Adapter<NoteRVAdapter.NoteRVViewHolder>() {
 
     val dataset = listOf<String>("Title1","Title2","Title3","Title4")

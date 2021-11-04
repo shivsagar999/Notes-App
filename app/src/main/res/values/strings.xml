@@ -13,5 +13,7 @@
     <string name="brush">Brush</string>
     <string name="trash">Trash</string>
     <string name="exit">Exit</string>
+    <string name="eurofins_notes">Eurofins Notes</string>
+    <string name="settings">Settings</string>
 
 </resources>
