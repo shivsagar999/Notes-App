@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_homeFragment_to_createNoteFragment"
             app:destination="@id/createNoteFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_trashFragment"
-            app:destination="@id/trashFragment" />
     </fragment>
     <fragment
         android:id="@+id/createNoteFragment"
@@ -36,4 +33,9 @@
         android:name="com.eurofins.mynotesapp.TrashFragment"
         android:label="fragment_trash"
         tools:layout="@layout/fragment_trash" />
+    <action
+        android:id="@+id/action_global_trashFragment"
+        app:destination="@id/trashFragment"
+        app:popUpTo="@id/trashFragment"
+        app:popUpToInclusive="true" />
 </navigation>

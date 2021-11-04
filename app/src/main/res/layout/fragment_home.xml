@@ -35,19 +35,9 @@
             app:backgroundTint="@color/light_black"
             app:fabAlignmentMode="end"
             app:fabCradleMargin="@dimen/eight_dp"
+            app:navigationIcon="@drawable/white_brush"
+            app:hideOnScroll="true"
             app:fabCradleRoundedCornerRadius="@dimen/thirty_dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/paint_brush"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/white_brush" />
-
-            </LinearLayout>
 
         </com.google.android.material.bottomappbar.BottomAppBar>
 

@@ -21,8 +21,7 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
         val navController = navHostFragment.navController
         navigationView.setNavigationItemSelectedListener {
-            navController.navigate(R.id.action_homeFragment_to_trashFragment)
-
+            navController.navigate(R.id.action_global_trashFragment)
             return@setNavigationItemSelectedListener true
         }
     }

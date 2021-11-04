@@ -15,6 +15,12 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent
+        </item>
+
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyNotesApp.MediumComponents
+        </item>
+
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="windowActionBar">false</item>
@@ -28,6 +34,18 @@
 
     <style name="myclosebutton" parent="Widget.AppCompat.Light.ActionButton.CloseMode">
         <item name="android:tint">@color/white</item> <!-- whatever color -->
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent"
+        parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="ShapeAppearance.MyNotesApp.MediumComponents"
+        parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">8dp</item>
     </style>
 
 </resources>

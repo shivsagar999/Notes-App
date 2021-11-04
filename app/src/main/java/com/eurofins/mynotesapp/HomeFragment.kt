@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.eurofins.mynotesapp.adapter.NoteListAdapter
+import com.eurofins.mynotesapp.bottomsheet.BottomSheetFragment
 import com.eurofins.mynotesapp.database.Note
 import com.eurofins.mynotesapp.databinding.FragmentHomeBinding
 import kotlinx.coroutines.flow.collect
@@ -106,11 +107,13 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_createNoteFragment)
         }
 
-        binding.paintBrush.setOnClickListener {
-            Toast.makeText(context, R.string.coming_soon, Toast.LENGTH_SHORT).show()
+        val bottomSheet = BottomSheetFragment()
+
+        binding.bottomAppbar.setNavigationOnClickListener {
+//            Toast.makeText(context, R.string.coming_soon, Toast.LENGTH_SHORT).show()
+            bottomSheet.show(parentFragmentManager,BottomSheetFragment.TAG)
+
         }
-
-
     }
 
     override fun onStart() {
