@@ -10,9 +10,9 @@
 
     </style>
 
-    <style name="ShapeAppearance.MyApp.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
-        <item name="cornerFamily">cut</item>
-        <item name="cornerSize">4dp</item>
-    </style>
+<!--    <style name="ShapeAppearance.MyApp.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">-->
+<!--        <item name="cornerFamily">cut</item>-->
+<!--        <item name="cornerSize">4dp</item>-->
+<!--    </style>-->
 
 </resources>
