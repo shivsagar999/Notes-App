@@ -12,9 +12,8 @@ import kotlinx.coroutines.launch
 
 class NoteViewModel(val notesDao: NotesDao) : ViewModel() {
     private var _note = MutableLiveData<Note>()
-    val note : LiveData<Note> get() = _note
+    val note: LiveData<Note> get() = _note
 
-    var delNotes: ArrayList<Note> = ArrayList()
     var selectedPosition = mutableMapOf<Int, Note>()
 
     fun deleteNote(note: Note) {
@@ -23,7 +22,7 @@ class NoteViewModel(val notesDao: NotesDao) : ViewModel() {
         }
     }
 
-    fun updateNote(note: Note){
+    fun updateNote(note: Note) {
         viewModelScope.launch {
             notesDao.update(note)
         }
@@ -35,39 +34,36 @@ class NoteViewModel(val notesDao: NotesDao) : ViewModel() {
         }
     }
 
-    fun insertTrashNote(note: Note){
-       val trashNote =  TrashNote(note.noteTitle, note.noteDescription, note.timeStamp)
-
-        viewModelScope.launch {notesDao.insertIntoTrashTable(trashNote)  }
+    fun insertTrashNote(note: Note) {
+        val trashNote = TrashNote(note.noteTitle, note.noteDescription, note.timeStamp)
+        viewModelScope.launch { notesDao.insertIntoTrashTable(trashNote) }
 
     }
 
-    fun getAllNotes(): Flow<List<Note>>{
+    fun getAllNotes(): Flow<List<Note>> {
         return notesDao.getAllNotes()
     }
 
     fun getNote(id: Int) {
         viewModelScope.launch {
-            _note.value =  notesDao.getNote(id = id)
+            _note.value = notesDao.getNote(id = id)
         }
     }
 
-    fun updateNote(title: String, description: String){
-            var newNote = _note.value
-            newNote?.noteTitle = title
-            newNote?.noteDescription = description
+    fun updateNote(title: String, description: String) {
+        var newNote = _note.value
+        newNote?.noteTitle = title
+        newNote?.noteDescription = description
         updateNote(newNote!!)
     }
 
 
-    fun addToDelete(note: Note,  position: Int){
-        delNotes.add(note)
+    fun addToDelete(note: Note, position: Int) {
         selectedPosition[position] = note
 
     }
 
-    fun removeFromDelete(note: Note, position: Int){
-        delNotes.remove(note)
+    fun removeFromDelete(note: Note, position: Int) {
         selectedPosition.remove(position)
     }
 

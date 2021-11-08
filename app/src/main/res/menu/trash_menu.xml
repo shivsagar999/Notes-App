@@ -12,7 +12,7 @@
     <item
         android:id="@+id/restore"
         android:icon="@drawable/restore_white"
-        android:title="Restore"
+        android:title="@string/restore"
         app:showAsAction="ifRoom" />
 
     <item

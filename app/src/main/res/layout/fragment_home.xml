@@ -1,60 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".HomeFragment">
 
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
-        android:orientation="vertical"
-        tools:context=".HomeFragment">
+        android:layout_margin="@dimen/four_dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/four_dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent" />
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:backgroundTint="@color/light_black"
+        app:fabAlignmentMode="end"
+        app:fabCradleMargin="@dimen/eight_dp"
+        app:fabCradleRoundedCornerRadius="@dimen/thirty_dp"
+        app:hideOnScroll="true"
+        app:navigationIcon="@drawable/white_brush">
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
 
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottom_appbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:backgroundTint="@color/light_black"
-            app:fabAlignmentMode="end"
-            app:fabCradleMargin="@dimen/eight_dp"
-            app:navigationIcon="@drawable/white_brush"
-            app:hideOnScroll="true"
-            app:fabCradleRoundedCornerRadius="@dimen/thirty_dp">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/create_new_note_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/thirty_dp"
+        android:layout_marginBottom="@dimen/thirty_dp"
+        android:contentDescription="@string/button_used_to_create_new_note"
+        android:src="@drawable/add_note"
+        app:layout_anchor="@id/bottom_appbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="@color/light_black" />
 
-        </com.google.android.material.bottomappbar.BottomAppBar>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/create_new_note_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/thirty_dp"
-            android:layout_marginBottom="@dimen/thirty_dp"
-            android:contentDescription="@string/button_used_to_create_new_note"
-            android:src="@drawable/add_note"
-            app:layout_anchor="@id/bottom_appbar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:rippleColor="@color/light_black" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-</LinearLayout>

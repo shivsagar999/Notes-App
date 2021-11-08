@@ -24,7 +24,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         return inflater.inflate(R.layout.fragment_bottom_sheet, container, false)
     }
 
-    companion object{
+    companion object {
         const val TAG = "BottomSheet"
     }
 }

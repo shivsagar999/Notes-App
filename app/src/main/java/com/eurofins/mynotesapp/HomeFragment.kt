@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.eurofins.mynotesapp.adapter.NoteListAdapter
-import com.eurofins.mynotesapp.bottomsheet.BottomSheetFragment
 import com.eurofins.mynotesapp.database.Note
 import com.eurofins.mynotesapp.databinding.FragmentHomeBinding
 import kotlinx.coroutines.flow.collect
@@ -107,12 +106,11 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_createNoteFragment)
         }
 
-        val bottomSheet = BottomSheetFragment()
+//        val bottomSheet = BottomSheetFragment()
 
         binding.bottomAppbar.setNavigationOnClickListener {
-//            Toast.makeText(context, R.string.coming_soon, Toast.LENGTH_SHORT).show()
-            bottomSheet.show(parentFragmentManager,BottomSheetFragment.TAG)
-
+            Toast.makeText(context, R.string.coming_soon, Toast.LENGTH_SHORT).show()
+//            bottomSheet.show(parentFragmentManager,BottomSheetFragment.TAG)
         }
     }
 
@@ -157,7 +155,6 @@ class HomeFragment : Fragment() {
                         homeFragmentViewModel.deleteNote(note)
                         homeFragmentViewModel.insertTrashNote(note)
                     }
-                    homeFragmentViewModel.delNotes.clear()
                     homeFragmentViewModel.selectedPosition.clear()
                     noteAdapter.isSelected = false
                     mode.finish() // Action picked, so close the CAB
@@ -202,6 +199,9 @@ class HomeFragment : Fragment() {
                 val newNotes = ArrayList<Note>()
                 for (note in searchNotes) {
                     if (note.noteTitle.lowercase(Locale.getDefault())
+                            .contains(newText.toString().lowercase(Locale.getDefault()))
+                        ||
+                        note.noteDescription.lowercase(Locale.getDefault())
                             .contains(newText.toString().lowercase(Locale.getDefault()))
                     ) {
                         newNotes.add(note)
