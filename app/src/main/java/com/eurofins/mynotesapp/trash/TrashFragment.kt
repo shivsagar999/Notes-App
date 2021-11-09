@@ -70,7 +70,6 @@ class TrashFragment : Fragment() {
                     (recyclerView.layoutManager as StaggeredGridLayoutManager).findViewByPosition(
                         position)
                 view?.setBackgroundColor(Color.parseColor("#2B3131"))
-
             } else {
                 trashFragmentViewModel.selectedPosition.put(position, trashNote)
                 val view =
