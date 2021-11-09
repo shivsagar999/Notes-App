@@ -1,4 +1,4 @@
-package com.eurofins.mynotesapp.trash
+package com.eurofins.mynotesapp
 
 import android.graphics.Color
 import android.os.Build
@@ -11,10 +11,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.eurofins.mynotesapp.NoteApplication
-import com.eurofins.mynotesapp.R
 import com.eurofins.mynotesapp.adapter.TrashNoteListAdapter
 import com.eurofins.mynotesapp.databinding.FragmentTrashBinding
+import com.eurofins.mynotesapp.trash.TrashViewModel
+import com.eurofins.mynotesapp.trash.TrashViewModelFactory
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -67,20 +67,24 @@ class TrashFragment : Fragment() {
 
             if (trashFragmentViewModel.selectedPosition.contains(position)) {
                 trashFragmentViewModel.selectedPosition.remove(position)
-                val selectedNote = recyclerView.layoutManager?.findViewByPosition(position)
+                val selectedNote =
+                    (recyclerView.layoutManager as StaggeredGridLayoutManager).findViewByPosition(
+                        position)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     selectedNote?.setBackgroundColor(resources.getColor(R.color.light_black,
                         activity?.theme))
-                } else {
+                }else{
                     selectedNote?.setBackgroundColor(resources.getColor(R.color.light_black))
                 }
             } else {
-                trashFragmentViewModel.selectedPosition[position] = trashNote
-                val selectedNote = recyclerView.layoutManager?.findViewByPosition(position)
+                trashFragmentViewModel.selectedPosition.put(position, trashNote)
+                val selectedNote =
+                    (recyclerView.layoutManager as StaggeredGridLayoutManager).findViewByPosition(
+                        position)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     selectedNote?.setBackgroundColor(resources.getColor(R.color.blue,
                         activity?.theme))
-                } else {
+                }else{
                     selectedNote?.setBackgroundColor(resources.getColor(R.color.blue))
                 }
             }

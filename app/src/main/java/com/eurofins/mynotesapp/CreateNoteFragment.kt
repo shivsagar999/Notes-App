@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.eurofins.mynotesapp.data.Note
 import com.eurofins.mynotesapp.databinding.FragmentCreateNoteBinding
@@ -24,14 +25,14 @@ class CreateNoteFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            noteId = it.getInt("id")
+            noteId = it.getInt("id").toInt()
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View {
+    ): View? {
         // Inflate the layout for this fragment
         binding = FragmentCreateNoteBinding.inflate(inflater, container, false)
         return binding.root
@@ -42,7 +43,7 @@ class CreateNoteFragment : Fragment() {
         if (noteId != 0) {
             createNoteFragmentViewModel.getNote(noteId!!)
             createNoteFragmentViewModel.editNote.observe(viewLifecycleOwner,
-                {
+                Observer {
                     binding.title.setText(it.noteTitle)
                     binding.description.setText(it.noteDescription)
                 })

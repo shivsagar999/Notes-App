@@ -32,7 +32,7 @@ class TrashNoteListAdapter(
         }
     }
 
-    class TrashNoteViewHolder(private var binding: NotesItemBinding) :
+    class TrashNoteViewHolder(var binding: NotesItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(trashNote: TrashNote) {
             binding.noteTitle.text = trashNote.noteTitle

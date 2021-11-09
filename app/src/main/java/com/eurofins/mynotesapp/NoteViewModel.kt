@@ -10,7 +10,7 @@ import com.eurofins.mynotesapp.data.TrashNote
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-class NoteViewModel(private val notesDao: NotesDao) : ViewModel() {
+class NoteViewModel(val notesDao: NotesDao) : ViewModel() {
 
     // editNote stores the Note fetched when user wants to change any particular note
     private var _editNote = MutableLiveData<Note>()
@@ -24,7 +24,7 @@ class NoteViewModel(private val notesDao: NotesDao) : ViewModel() {
         }
     }
 
-    private fun updateNote(note: Note) {
+    fun updateNote(note: Note) {
         viewModelScope.launch {
             notesDao.update(note)
         }
@@ -52,7 +52,7 @@ class NoteViewModel(private val notesDao: NotesDao) : ViewModel() {
     }
 
     fun updateNote(title: String, description: String) {
-        val newNote = _editNote.value
+        var newNote = _editNote.value
         newNote?.noteTitle = title
         newNote?.noteDescription = description
         updateNote(newNote!!)
@@ -63,7 +63,7 @@ class NoteViewModel(private val notesDao: NotesDao) : ViewModel() {
         selectedPosition[position] = note
     }
 
-    fun removeFromDelete(position: Int) {
+    fun removeFromDelete(note: Note, position: Int) {
         selectedPosition.remove(position)
     }
 }

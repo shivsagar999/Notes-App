@@ -23,7 +23,7 @@ import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
+    lateinit var recyclerView: RecyclerView
     lateinit var noteAdapter: NoteListAdapter
     private var searchNotes: ArrayList<Note> = ArrayList()
 
@@ -71,13 +71,12 @@ class HomeFragment : Fragment() {
                 actionMode = activity?.startActionMode(actionModeCallback)
             }
             if (homeFragmentViewModel.selectedPosition.contains(position)) {
-                homeFragmentViewModel.removeFromDelete(position)
+                homeFragmentViewModel.removeFromDelete(note, position)
                 val selectedNote = recyclerView.layoutManager?.findViewByPosition(position)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     selectedNote?.setBackgroundColor(resources.getColor(R.color.light_black,
-                        activity?.theme))
-                }
-                else{
+                    activity?.theme))
+                }else{
                     selectedNote?.setBackgroundColor(resources.getColor(R.color.light_black))
                 }
             } else {
@@ -86,8 +85,7 @@ class HomeFragment : Fragment() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     selectedNote?.setBackgroundColor(resources.getColor(R.color.blue,
                         activity?.theme))
-                }
-                else{
+                }else{
                     selectedNote?.setBackgroundColor(resources.getColor(R.color.blue))
                 }
             }

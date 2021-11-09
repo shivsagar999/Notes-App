@@ -7,11 +7,19 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
+<<<<<<< HEAD
             <value value="C:\Users\U9NF\.android\avd\Pixel_C_API_29.avd" />
+=======
+            <value value="C:\Users\U9NF\.android\avd\Pixel_XL_API_29.avd" />
+>>>>>>> parent of 33e7c94 (Minor code changes)
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
+<<<<<<< HEAD
     <timeTargetWasSelectedWithDropDown value="2021-11-09T11:45:07.729318400Z" />
+=======
+    <timeTargetWasSelectedWithDropDown value="2021-11-04T04:30:19.650449700Z" />
+>>>>>>> parent of 33e7c94 (Minor code changes)
   </component>
 </project>
