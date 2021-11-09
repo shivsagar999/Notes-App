@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/trashFragment"
-        android:name="com.eurofins.mynotesapp.TrashFragment"
+        android:name="com.eurofins.mynotesapp.trash.TrashFragment"
         android:label="fragment_trash"
         tools:layout="@layout/fragment_trash" />
     <action

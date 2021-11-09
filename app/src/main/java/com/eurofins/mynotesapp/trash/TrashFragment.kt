@@ -1,6 +1,7 @@
-package com.eurofins.mynotesapp
+package com.eurofins.mynotesapp.trash
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -10,10 +11,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.eurofins.mynotesapp.NoteApplication
+import com.eurofins.mynotesapp.R
 import com.eurofins.mynotesapp.adapter.TrashNoteListAdapter
 import com.eurofins.mynotesapp.databinding.FragmentTrashBinding
-import com.eurofins.mynotesapp.trash.TrashViewModel
-import com.eurofins.mynotesapp.trash.TrashViewModelFactory
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -66,16 +67,22 @@ class TrashFragment : Fragment() {
 
             if (trashFragmentViewModel.selectedPosition.contains(position)) {
                 trashFragmentViewModel.selectedPosition.remove(position)
-                val view =
-                    (recyclerView.layoutManager as StaggeredGridLayoutManager).findViewByPosition(
-                        position)
-                view?.setBackgroundColor(Color.parseColor("#2B3131"))
+                val selectedNote = recyclerView.layoutManager?.findViewByPosition(position)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    selectedNote?.setBackgroundColor(resources.getColor(R.color.light_black,
+                        activity?.theme))
+                } else {
+                    selectedNote?.setBackgroundColor(resources.getColor(R.color.light_black))
+                }
             } else {
-                trashFragmentViewModel.selectedPosition.put(position, trashNote)
-                val view =
-                    (recyclerView.layoutManager as StaggeredGridLayoutManager).findViewByPosition(
-                        position)
-                view?.setBackgroundColor(Color.parseColor("#887B06"))
+                trashFragmentViewModel.selectedPosition[position] = trashNote
+                val selectedNote = recyclerView.layoutManager?.findViewByPosition(position)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    selectedNote?.setBackgroundColor(resources.getColor(R.color.blue,
+                        activity?.theme))
+                } else {
+                    selectedNote?.setBackgroundColor(resources.getColor(R.color.blue))
+                }
             }
             if (trashFragmentViewModel.selectedPosition.isEmpty()) {
                 actionMode?.finish()

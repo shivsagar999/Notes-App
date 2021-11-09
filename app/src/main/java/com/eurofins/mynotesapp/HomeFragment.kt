@@ -1,6 +1,7 @@
 package com.eurofins.mynotesapp
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -22,7 +23,7 @@ import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
-    lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: RecyclerView
     lateinit var noteAdapter: NoteListAdapter
     private var searchNotes: ArrayList<Note> = ArrayList()
 
@@ -70,13 +71,25 @@ class HomeFragment : Fragment() {
                 actionMode = activity?.startActionMode(actionModeCallback)
             }
             if (homeFragmentViewModel.selectedPosition.contains(position)) {
-                homeFragmentViewModel.removeFromDelete(note, position)
-                val view = recyclerView.layoutManager?.findViewByPosition(position)
-                view?.setBackgroundColor(Color.parseColor("#2B3131"))
+                homeFragmentViewModel.removeFromDelete(position)
+                val selectedNote = recyclerView.layoutManager?.findViewByPosition(position)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    selectedNote?.setBackgroundColor(resources.getColor(R.color.light_black,
+                        activity?.theme))
+                }
+                else{
+                    selectedNote?.setBackgroundColor(resources.getColor(R.color.light_black))
+                }
             } else {
                 homeFragmentViewModel.addToDelete(note, position)
-                val view = recyclerView.layoutManager?.findViewByPosition(position)
-                view?.setBackgroundColor(Color.parseColor("#887B06"))
+                val selectedNote = recyclerView.layoutManager?.findViewByPosition(position)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    selectedNote?.setBackgroundColor(resources.getColor(R.color.blue,
+                        activity?.theme))
+                }
+                else{
+                    selectedNote?.setBackgroundColor(resources.getColor(R.color.blue))
+                }
             }
             if (homeFragmentViewModel.selectedPosition.isEmpty()) {
                 actionMode?.finish()

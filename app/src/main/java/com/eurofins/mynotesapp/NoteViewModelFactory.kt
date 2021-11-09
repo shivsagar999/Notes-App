@@ -7,7 +7,7 @@ import com.eurofins.mynotesapp.data.NotesDao
 class NoteViewModelFactory(
     private val notesDao: NotesDao
 ):ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(NoteViewModel::class.java)){
             @Suppress("unchecked_cast")
             return  NoteViewModel(notesDao) as T
