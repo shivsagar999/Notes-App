@@ -2,6 +2,7 @@ package com.eurofins.mynotesapp
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -21,7 +22,6 @@ class TrashFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     lateinit var trashNoteAdapter: TrashNoteListAdapter
-
     var actionMode: ActionMode? = null
 
     private val trashFragmentViewModel: TrashViewModel by activityViewModels {
@@ -57,7 +57,7 @@ class TrashFragment : Fragment() {
         recyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         trashNoteAdapter = TrashNoteListAdapter({
-            Toast.makeText(context, "You Can't edit the note in trash", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "You can't edit the note in trash", Toast.LENGTH_SHORT).show()
         }, { trashNote, position ->
 
             if (actionMode == null) {
@@ -88,11 +88,22 @@ class TrashFragment : Fragment() {
 
         })
 
-
         recyclerView.adapter = trashNoteAdapter
         lifecycle.coroutineScope.launch {
             trashFragmentViewModel.getAllTrashNotes().collect {
                 trashNoteAdapter.submitList(it)
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        recyclerView.viewTreeObserver.addOnGlobalLayoutListener {
+            for (pos in trashFragmentViewModel.selectedPosition.keys) {
+                val view = recyclerView.layoutManager?.findViewByPosition(pos)
+                view?.setBackgroundColor(Color.parseColor("#887B06"))
+                Log.d("Wagle", "Your View is $view")
             }
         }
     }
@@ -135,7 +146,6 @@ class TrashFragment : Fragment() {
                     trashNoteAdapter.isSelected = false
                     mode.finish()
                     true
-
                 }
                 else -> false
             }
@@ -143,6 +153,17 @@ class TrashFragment : Fragment() {
 
         override fun onDestroyActionMode(mode: ActionMode) {
             actionMode = null
+            trashNoteAdapter.isSelected = false
+            unselectAllNotes(trashFragmentViewModel.selectedPosition.keys)
+            trashFragmentViewModel.selectedPosition.clear()
+        }
+    }
+
+    fun unselectAllNotes(keys: MutableSet<Int>) {
+        for (pos in keys) {
+            val view = recyclerView.layoutManager?.findViewByPosition(pos)
+            view?.setBackgroundColor(Color.parseColor("#2B3131"))
+            Log.d("Wagle", "Unselect View is $view")
         }
     }
 }
