@@ -1,12 +1,14 @@
 package com.eurofins.mynotesapp
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
@@ -27,6 +29,7 @@ class HomeFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var noteAdapter: NoteListAdapter
     private var searchNotes: ArrayList<Note> = ArrayList()
+    private var mContext: Context? = null
 
     var actionMode: ActionMode? = null
 
@@ -34,6 +37,14 @@ class HomeFragment : Fragment() {
         NoteViewModelFactory((activity?.application as NoteApplication).database.getNotesDao())
     }
     private lateinit var binding: FragmentHomeBinding
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+        if(mContext == null){
+            mContext = context.applicationContext
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,8 +87,8 @@ class HomeFragment : Fragment() {
                 val selectedNote = recyclerView.layoutManager?.findViewByPosition(position)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     selectedNote?.setBackgroundColor(resources.getColor(R.color.light_black,
-                    activity?.theme))
-                }else{
+                        activity?.theme))
+                } else {
                     selectedNote?.setBackgroundColor(resources.getColor(R.color.light_black))
                 }
             } else {
@@ -107,13 +118,14 @@ class HomeFragment : Fragment() {
         }
     }
 
+
     @SuppressLint("ResourceAsColor")
     override fun onStart() {
         super.onStart()
         recyclerView.viewTreeObserver.addOnGlobalLayoutListener {
             for (pos in homeFragmentViewModel.selectedPosition.keys) {
                 val view = recyclerView.layoutManager?.findViewByPosition(pos)
-                view?.setBackgroundColor(R.color.blue)
+                view?.setBackgroundColor(Color.BLUE)
             }
         }
     }
@@ -206,7 +218,10 @@ class HomeFragment : Fragment() {
         })
     }
 
-
+    override fun onDetach() {
+        super.onDetach()
+        mContext = null
+    }
 }
 
 

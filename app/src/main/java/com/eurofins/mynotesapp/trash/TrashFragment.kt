@@ -103,7 +103,8 @@ class TrashFragment : Fragment() {
         recyclerView.viewTreeObserver.addOnGlobalLayoutListener {
             for (pos in trashFragmentViewModel.selectedPosition.keys) {
                 val view = recyclerView.layoutManager?.findViewByPosition(pos)
-                view?.setBackgroundColor(resources.getColor(R.color.blue))
+//                view?.setBackgroundColor(resources.getColor(R.color.bluer))
+                view?.setBackgroundColor(Color.BLUE)
                 Log.d("Wagle", "Your View is $view")
             }
         }
