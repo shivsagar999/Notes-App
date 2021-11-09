@@ -8,28 +8,26 @@ import com.eurofins.mynotesapp.database.TrashNote
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-class TrashViewModel(val notesDao: NotesDao): ViewModel() {
+class TrashViewModel(val notesDao: NotesDao) : ViewModel() {
 
     var selectedPosition = mutableMapOf<Int, TrashNote>()
 
-
-    fun addNoteToNotesTable(trashNote: TrashNote)
-    {   var note = Note(trashNote.noteTitle, trashNote.noteDescription,
-                        trashNote.timeStamp)
+    fun addNoteToNotesTable(trashNote: TrashNote) {
+        var note = Note(trashNote.noteTitle, trashNote.noteDescription,
+            trashNote.timeStamp)
 
         viewModelScope.launch {
             notesDao.insert(note)
         }
     }
 
-    fun deleteTrashNote(trashNote: TrashNote){
+    fun deleteTrashNote(trashNote: TrashNote) {
         viewModelScope.launch {
             notesDao.deleteFromTrashTable(trashNote)
         }
     }
 
-    fun getAllTrashNotes(): Flow<List<TrashNote>>{
+    fun getAllTrashNotes(): Flow<List<TrashNote>> {
         return notesDao.getAllTrashNotes()
     }
-
 }

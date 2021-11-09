@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 
 class TrashFragment : Fragment() {
 
-    lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: RecyclerView
     lateinit var trashNoteAdapter: TrashNoteListAdapter
 
     var actionMode: ActionMode? = null
@@ -38,7 +38,7 @@ class TrashFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentTrashBinding.inflate(inflater, container, false)
         return binding.root
@@ -46,11 +46,11 @@ class TrashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        if (trashFragmentViewModel.selectedPosition.isNotEmpty()) {
-//            if (actionMode == null) {
-//                actionMode = activity?.startActionMode(actionModeCallback)
-//            }
-//        }
+        if (trashFragmentViewModel.selectedPosition.isNotEmpty()) {
+            if (actionMode == null) {
+                actionMode = activity?.startActionMode(actionModeCallBack)
+            }
+        }
 
         recyclerView = binding.recyclerView
         recyclerView.setHasFixedSize(true)
@@ -58,22 +58,24 @@ class TrashFragment : Fragment() {
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         trashNoteAdapter = TrashNoteListAdapter({
             Toast.makeText(context, "You Can't edit the note in trash", Toast.LENGTH_SHORT).show()
-        },{trashNote, position ->
+        }, { trashNote, position ->
 
             if (actionMode == null) {
                 actionMode = activity?.startActionMode(actionModeCallBack)
             }
 
-            if(trashFragmentViewModel.selectedPosition.contains(position)){
+            if (trashFragmentViewModel.selectedPosition.contains(position)) {
                 trashFragmentViewModel.selectedPosition.remove(position)
-                val view = (recyclerView.layoutManager as StaggeredGridLayoutManager).
-                findViewByPosition(position)
+                val view =
+                    (recyclerView.layoutManager as StaggeredGridLayoutManager).findViewByPosition(
+                        position)
                 view?.setBackgroundColor(Color.parseColor("#2B3131"))
 
-            }else{
+            } else {
                 trashFragmentViewModel.selectedPosition.put(position, trashNote)
-                val view = (recyclerView.layoutManager as StaggeredGridLayoutManager).
-                findViewByPosition(position)
+                val view =
+                    (recyclerView.layoutManager as StaggeredGridLayoutManager).findViewByPosition(
+                        position)
                 view?.setBackgroundColor(Color.parseColor("#887B06"))
             }
             if (trashFragmentViewModel.selectedPosition.isEmpty()) {
@@ -89,13 +91,13 @@ class TrashFragment : Fragment() {
 
         recyclerView.adapter = trashNoteAdapter
         lifecycle.coroutineScope.launch {
-            trashFragmentViewModel.getAllTrashNotes().collect{
+            trashFragmentViewModel.getAllTrashNotes().collect {
                 trashNoteAdapter.submitList(it)
             }
         }
     }
 
-    val actionModeCallBack = object : ActionMode.Callback{
+    private val actionModeCallBack = object : ActionMode.Callback {
         override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
             val inflater: MenuInflater = mode.menuInflater
             inflater.inflate(R.menu.trash_menu, menu)
@@ -113,12 +115,11 @@ class TrashFragment : Fragment() {
         }
 
         override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-            return when(item.itemId){
+            return when (item.itemId) {
                 R.id.restore -> {
-                    for (trashNote in trashFragmentViewModel.selectedPosition.values)
-                    {
+                    for (trashNote in trashFragmentViewModel.selectedPosition.values) {
                         trashFragmentViewModel.deleteTrashNote(trashNote)
-                       trashFragmentViewModel.addNoteToNotesTable(trashNote)
+                        trashFragmentViewModel.addNoteToNotesTable(trashNote)
                     }
                     trashFragmentViewModel.selectedPosition.clear()
                     trashNoteAdapter.isSelected = false
@@ -127,8 +128,7 @@ class TrashFragment : Fragment() {
                 }
 
                 R.id.delete -> {
-                    for (trashNote in trashFragmentViewModel.selectedPosition.values)
-                    {
+                    for (trashNote in trashFragmentViewModel.selectedPosition.values) {
                         trashFragmentViewModel.deleteTrashNote(trashNote)
                     }
                     trashFragmentViewModel.selectedPosition.clear()
@@ -144,7 +144,5 @@ class TrashFragment : Fragment() {
         override fun onDestroyActionMode(mode: ActionMode) {
             actionMode = null
         }
-
     }
-
 }

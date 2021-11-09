@@ -29,8 +29,7 @@
         app:fabAlignmentMode="end"
         app:fabCradleMargin="@dimen/eight_dp"
         app:fabCradleRoundedCornerRadius="@dimen/thirty_dp"
-        app:hideOnScroll="true"
-        app:navigationIcon="@drawable/white_brush">
+        app:hideOnScroll="true">
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 

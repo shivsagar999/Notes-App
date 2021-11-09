@@ -15,7 +15,6 @@ class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemSelected: (No
 
     var isSelected: Boolean = false
 
-
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Note>() {
             override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
@@ -45,17 +44,17 @@ class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemSelected: (No
 
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
-            if(isSelected){
+            if (isSelected) {
                 onItemSelected(getItem(position), position)
 
-            }else{
+            } else {
                 onItemClicked(getItem(position))
             }
         }
 
         viewHolder.itemView.setOnLongClickListener {
             val position = viewHolder.adapterPosition
-            Log.d("Wagle", "Position in adapter $position" )
+            Log.d("Wagle", "Position in adapter $position")
             onItemSelected(getItem(position), position)
             true
         }
@@ -65,5 +64,4 @@ class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemSelected: (No
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
 }

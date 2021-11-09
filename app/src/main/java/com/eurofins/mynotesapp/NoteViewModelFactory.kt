@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.eurofins.mynotesapp.database.NotesDao
 
 class NoteViewModelFactory(
-    val notesDao: NotesDao
+    private val notesDao: NotesDao
 ):ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(NoteViewModel::class.java)){

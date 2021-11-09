@@ -3,7 +3,6 @@ package com.eurofins.mynotesapp
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -24,13 +23,9 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
         val navController = navHostFragment.navController
         navigationView.setNavigationItemSelectedListener {
-            when(it.itemId) {
-               R.id.trash->{
-                   navController.navigate(R.id.action_global_trashFragment)
-                   drawerLayout.close()
-               }
-                R.id.settings->{
-                    Toast.makeText(this, R.string.coming_soon, Toast.LENGTH_SHORT).show()
+            when (it.itemId) {
+                R.id.trash -> {
+                    navController.navigate(R.id.action_global_trashFragment)
                     drawerLayout.close()
                 }
             }
@@ -58,8 +53,6 @@ class MainActivity : AppCompatActivity() {
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true
         }
-
-
         return super.onOptionsItemSelected(item)
     }
 

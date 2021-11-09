@@ -16,8 +16,5 @@
         android:textColorHint = "@color/white"
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
-    <item
-        android:id="@+id/exit"
-        app:showAsAction="never"
-        android:title="@string/exit"/>
+    
 </menu>

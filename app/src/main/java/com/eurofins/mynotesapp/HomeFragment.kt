@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -48,7 +47,6 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -71,7 +69,6 @@ class HomeFragment : Fragment() {
             if (actionMode == null) {
                 actionMode = activity?.startActionMode(actionModeCallback)
             }
-
             if (homeFragmentViewModel.selectedPosition.contains(position)) {
                 homeFragmentViewModel.removeFromDelete(note, position)
                 val view = recyclerView.layoutManager?.findViewByPosition(position)
@@ -81,7 +78,6 @@ class HomeFragment : Fragment() {
                 val view = recyclerView.layoutManager?.findViewByPosition(position)
                 view?.setBackgroundColor(Color.parseColor("#887B06"))
             }
-
             if (homeFragmentViewModel.selectedPosition.isEmpty()) {
                 actionMode?.finish()
                 noteAdapter.isSelected = false
@@ -92,7 +88,6 @@ class HomeFragment : Fragment() {
             actionMode?.invalidate()
         })
         recyclerView.adapter = noteAdapter
-
         lifecycle.coroutineScope.launch {
             homeFragmentViewModel.getAllNotes().collect {
                 noteAdapter.submitList(it)
@@ -100,17 +95,9 @@ class HomeFragment : Fragment() {
                 searchNotes.addAll(it)
             }
         }
-
         binding.createNewNoteButton.setOnClickListener {
             actionMode?.finish()
             findNavController().navigate(R.id.action_homeFragment_to_createNoteFragment)
-        }
-
-//        val bottomSheet = BottomSheetFragment()
-
-        binding.bottomAppbar.setNavigationOnClickListener {
-            Toast.makeText(context, R.string.coming_soon, Toast.LENGTH_SHORT).show()
-//            bottomSheet.show(parentFragmentManager,BottomSheetFragment.TAG)
         }
     }
 
