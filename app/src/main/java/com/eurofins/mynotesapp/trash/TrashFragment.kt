@@ -78,15 +78,6 @@ class TrashFragment : Fragment() {
                 }
             } else {
                 trashFragmentViewModel.selectedPosition.put(position, trashNote)
-                val selectedNote =
-                    (recyclerView.layoutManager as StaggeredGridLayoutManager).findViewByPosition(
-                        position)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    selectedNote?.setBackgroundColor(resources.getColor(R.color.blue,
-                        activity?.theme))
-                }else{
-                    selectedNote?.setBackgroundColor(resources.getColor(R.color.blue))
-                }
             }
             if (trashFragmentViewModel.selectedPosition.isEmpty()) {
                 actionMode?.finish()
@@ -112,7 +103,7 @@ class TrashFragment : Fragment() {
         recyclerView.viewTreeObserver.addOnGlobalLayoutListener {
             for (pos in trashFragmentViewModel.selectedPosition.keys) {
                 val view = recyclerView.layoutManager?.findViewByPosition(pos)
-                view?.setBackgroundColor(Color.parseColor("#887B06"))
+                view?.setBackgroundColor(resources.getColor(R.color.blue))
                 Log.d("Wagle", "Your View is $view")
             }
         }

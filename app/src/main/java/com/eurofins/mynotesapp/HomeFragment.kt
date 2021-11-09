@@ -1,5 +1,6 @@
 package com.eurofins.mynotesapp
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -81,13 +82,7 @@ class HomeFragment : Fragment() {
                 }
             } else {
                 homeFragmentViewModel.addToDelete(note, position)
-                val selectedNote = recyclerView.layoutManager?.findViewByPosition(position)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    selectedNote?.setBackgroundColor(resources.getColor(R.color.blue,
-                        activity?.theme))
-                }else{
-                    selectedNote?.setBackgroundColor(resources.getColor(R.color.blue))
-                }
+
             }
             if (homeFragmentViewModel.selectedPosition.isEmpty()) {
                 actionMode?.finish()
@@ -112,13 +107,13 @@ class HomeFragment : Fragment() {
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onStart() {
         super.onStart()
         recyclerView.viewTreeObserver.addOnGlobalLayoutListener {
             for (pos in homeFragmentViewModel.selectedPosition.keys) {
                 val view = recyclerView.layoutManager?.findViewByPosition(pos)
-                view?.setBackgroundColor(Color.parseColor("#887B06"))
-                Log.d("Wagle", "Your View is $view")
+                view?.setBackgroundColor(R.color.blue)
             }
         }
     }
