@@ -1,4 +1,4 @@
-package com.eurofins.mynotesapp.database
+package com.eurofins.mynotesapp.data
 
 import android.content.Context
 import androidx.room.Database
@@ -9,7 +9,6 @@ import androidx.room.RoomDatabase
 abstract class NoteDatabase : RoomDatabase() {
 
     abstract fun getNotesDao(): NotesDao
-
 
     companion object {
         @Volatile

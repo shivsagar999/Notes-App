@@ -1,4 +1,4 @@
-package com.eurofins.mynotesapp.database
+package com.eurofins.mynotesapp.data
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
@@ -21,6 +21,7 @@ interface NotesDao {
     @Query("SELECT * FROM notesTable WHERE id =:id")
     suspend fun getNote(id: Int): Note
 
+    // Queries for the trashTable
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertIntoTrashTable(trashNote: TrashNote)
 

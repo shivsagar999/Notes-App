@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.eurofins.mynotesapp.adapter.NoteListAdapter
-import com.eurofins.mynotesapp.database.Note
+import com.eurofins.mynotesapp.data.Note
 import com.eurofins.mynotesapp.databinding.FragmentHomeBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

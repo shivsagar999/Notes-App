@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.eurofins.mynotesapp.database.Note
+import com.eurofins.mynotesapp.data.Note
 import com.eurofins.mynotesapp.databinding.FragmentCreateNoteBinding
 
 
@@ -43,7 +43,7 @@ class CreateNoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (noteId != 0) {
             createNoteFragmentViewModel.getNote(noteId!!)
-            createNoteFragmentViewModel.note.observe(viewLifecycleOwner,
+            createNoteFragmentViewModel.editNote.observe(viewLifecycleOwner,
                 Observer {
                     binding.title.setText(it.noteTitle)
                     binding.description.setText(it.noteDescription)

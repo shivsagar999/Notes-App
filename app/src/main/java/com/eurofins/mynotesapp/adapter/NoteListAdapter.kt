@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.eurofins.mynotesapp.database.Note
+import com.eurofins.mynotesapp.data.Note
 import com.eurofins.mynotesapp.databinding.NotesItemBinding
 
 class NoteListAdapter(val onItemClicked: (Note) -> Unit, val onItemSelected: (Note, Int) -> Unit) :

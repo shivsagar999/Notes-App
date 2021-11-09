@@ -6,9 +6,9 @@
         android:name=".NoteApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:icon="@drawable/notes_icon"
+        android:icon="@mipmap/notes_icon"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/notes_icon"
+        android:roundIcon="@mipmap/notes_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyNotesApp">
         <activity
