@@ -6,7 +6,7 @@
         android:id="@+id/selected_size"
         android:title="@string/_0"
         app:itemTextColor="@color/white"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         />
 
     <item

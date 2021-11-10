@@ -14,6 +14,7 @@
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/drawable/ic_delete.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/drawable/ic_delete_black.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/drawable/search.xml" value="0.14270833333333333" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/drawable/trash.xml" value="0.2703125" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/drawable/white_add.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/drawable/white_palette.xml" value="0.14635416666666667" />
@@ -30,6 +31,7 @@
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/menu/menu.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/menu/nav_drawer.xml" value="0.12291666666666666" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/menu/overflow_menu.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/menu/search_view.xml" value="0.1265625" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/menu/trash_menu.xml" value="0.78125" />
         <entry key="..\:/Users/U9NF/AndroidStudioProjects/MyNotesApp/app/src/main/res/xml/searchable.xml" value="0.12291666666666666" />
       </map>

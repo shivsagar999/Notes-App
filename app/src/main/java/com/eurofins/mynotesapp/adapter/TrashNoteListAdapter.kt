@@ -28,7 +28,6 @@ class TrashNoteListAdapter(
             override fun areContentsTheSame(oldItem: TrashNote, newItem: TrashNote): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
 
