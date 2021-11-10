@@ -63,6 +63,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (homeFragmentViewModel.selectedPosition.isNotEmpty()) {
+            noteAdapter.isSelected = true
             if (actionMode == null) {
                 actionMode = activity?.startActionMode(actionModeCallback)
             }

@@ -48,6 +48,7 @@ class TrashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (trashFragmentViewModel.selectedPosition.isNotEmpty()) {
+            trashNoteAdapter.isSelected = true
             if (actionMode == null) {
                 actionMode = activity?.startActionMode(actionModeCallBack)
             }
