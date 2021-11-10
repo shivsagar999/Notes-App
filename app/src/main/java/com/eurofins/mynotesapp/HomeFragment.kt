@@ -136,7 +136,7 @@ class HomeFragment : Fragment() {
         override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
             // Inflate a menu resource providing context menu items
             val inflater: MenuInflater = mode.menuInflater
-            inflater.inflate(R.menu.home_menu, menu)
+            inflater.inflate(R.menu.home_menu_when_selected, menu)
             return true
         }
 

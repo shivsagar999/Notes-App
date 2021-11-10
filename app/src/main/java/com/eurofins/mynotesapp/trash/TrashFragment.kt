@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
@@ -168,5 +169,11 @@ class TrashFragment : Fragment() {
             view?.setBackgroundColor(Color.parseColor("#2B3131"))
             Log.d("Wagle", "Unselect View is $view")
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        val searchItem = menu.findItem(R.id.search_view)
+        searchItem.isVisible = false
     }
 }
