@@ -14,6 +14,8 @@ import com.eurofins.mynotesapp.databinding.FragmentCreateNoteBinding
 
 class CreateNoteFragment : Fragment() {
 
+    val pattern = Regex("[a-zA-Z_0-9!-~]")
+
     private lateinit var binding: FragmentCreateNoteBinding
 
     private val createNoteFragmentViewModel: NoteViewModel by activityViewModels {
@@ -58,8 +60,8 @@ class CreateNoteFragment : Fragment() {
 
                 findNavController().navigate(R.id.action_createNoteFragment_to_homeFragment)
             } else {
-                if (binding.title.text.toString().isNotEmpty() or
-                    binding.description.text.toString().isNotEmpty()
+                if (pattern.containsMatchIn(binding.title.text.toString()) or
+                    pattern.containsMatchIn(binding.description.text.toString())
                 ) {
                     val newNote = Note(
                         noteTitle = binding.title.text.toString(),

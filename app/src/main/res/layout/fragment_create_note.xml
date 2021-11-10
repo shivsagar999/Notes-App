@@ -39,7 +39,7 @@
         android:background="@null"
         android:hint="@string/title"
         android:autofillHints="@strings/title"
-        android:inputType="textMultiLine"
+        android:inputType="text"
         android:padding="@dimen/four_dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
