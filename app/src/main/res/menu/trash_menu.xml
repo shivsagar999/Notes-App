@@ -13,11 +13,11 @@
         android:id="@+id/restore"
         android:icon="@drawable/restore_white"
         android:title="@string/restore"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/delete"
         android:icon="@drawable/trash"
         android:title="@string/delete"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>
