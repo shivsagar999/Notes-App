@@ -15,18 +15,15 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
-<!--        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent-->
-<!--        </item>-->
-
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyNotesApp.MediumComponents
+        <item name="android:editTextColor">@android:color/black</item>
+        <item name="shapeAppearanceMediumComponent">
+            @style/ShapeAppearance.MyNotesApp.MediumComponents
         </item>
-
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="windowActionBar">false</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
-
         <item name="android:actionMenuTextColor">@color/white</item>
         <item name="android:actionModeBackground">@color/light_black</item>
         <item name="actionModeCloseButtonStyle">@style/myclosebutton</item>
@@ -35,7 +32,6 @@
     <style name="myclosebutton" parent="Widget.AppCompat.Light.ActionButton.CloseMode">
         <item name="android:tint">@color/white</item> <!-- whatever color -->
     </style>
-
 
 
     <style name="ShapeAppearance.MyNotesApp.MediumComponents"

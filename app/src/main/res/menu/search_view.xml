@@ -7,9 +7,6 @@
         android:icon="@drawable/search"
         app:showAsAction="collapseActionView|ifRoom"
         android:title="@string/title"
-        android:background = "@color/white"
-        android:editTextColor = "@color/black"
-        android:textColorHint = "@color/black"
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
     
