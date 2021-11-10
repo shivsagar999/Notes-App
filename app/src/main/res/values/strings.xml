@@ -1,4 +1,5 @@
 <resources>
+    
     <string name="app_name">MyNotesApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title">Title</string>
@@ -11,6 +12,6 @@
     <string name="trash">Trash</string>
     <string name="eurofins_notes">Eurofins Notes</string>
     <string name="restore">Restore</string>
-    <string name="delete_forever">Delete forever</string>
+    <string name="delete_permanently">Delete permanently</string>
 
 </resources>
