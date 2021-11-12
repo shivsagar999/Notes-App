@@ -14,3 +14,4 @@ class Note(
     var id: Int = 0
 
 }
+// Tables merge , camel casing ,

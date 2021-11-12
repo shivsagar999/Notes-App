@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
 
     var actionMode: ActionMode? = null
 
-
+    // try using hilt viewModel
     private val homeFragmentViewModel: NoteViewModel by activityViewModels {
         NoteViewModelFactory((activity?.application as NoteApplication).database.getNotesDao())
     }
