@@ -32,6 +32,7 @@ class HomeFragment : Fragment() {
 
     var actionMode: ActionMode? = null
 
+
     private val homeFragmentViewModel: NoteViewModel by activityViewModels {
         NoteViewModelFactory((activity?.application as NoteApplication).database.getNotesDao())
     }
@@ -203,6 +204,7 @@ class HomeFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 val newNotes = ArrayList<Note>()
+                // Use dao and viewmodel
                 for (note in searchNotes) {
                     if (note.noteTitle.lowercase(Locale.getDefault())
                             .contains(newText.toString().lowercase(Locale.getDefault()))

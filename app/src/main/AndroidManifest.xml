@@ -4,6 +4,7 @@
 
     <application
         android:name=".NoteApplication"
+
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/notes_icon"
