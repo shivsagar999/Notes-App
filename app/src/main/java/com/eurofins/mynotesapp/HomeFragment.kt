@@ -63,7 +63,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (homeFragmentViewModel.selectedPosition.isNotEmpty()) {
-            noteAdapter.isSelected = true
             if (actionMode == null) {
                 actionMode = activity?.startActionMode(actionModeCallback)
             }
@@ -119,9 +118,11 @@ class HomeFragment : Fragment() {
     }
 
 
-    @SuppressLint("ResourceAsColor")
     override fun onStart() {
         super.onStart()
+        if (homeFragmentViewModel.selectedPosition.isNotEmpty()) {
+            noteAdapter.isSelected = true
+        }
         recyclerView.viewTreeObserver.addOnGlobalLayoutListener {
             for (pos in homeFragmentViewModel.selectedPosition.keys) {
                 val view = recyclerView.layoutManager?.findViewByPosition(pos)

@@ -49,7 +49,6 @@ class TrashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (trashFragmentViewModel.selectedPosition.isNotEmpty()) {
-            trashNoteAdapter.isSelected = true
             if (actionMode == null) {
                 actionMode = activity?.startActionMode(actionModeCallBack)
             }
@@ -101,6 +100,10 @@ class TrashFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+
+        if (trashFragmentViewModel.selectedPosition.isNotEmpty()) {
+            trashNoteAdapter.isSelected = true
+        }
 
         recyclerView.viewTreeObserver.addOnGlobalLayoutListener {
             for (pos in trashFragmentViewModel.selectedPosition.keys) {
