@@ -16,15 +16,17 @@ interface NotesDao {
     @Delete
     suspend fun delete(note: Note)
 
-    @Query("select * from notesTable WHERE isDeleted = 0 order by id ASC")
+    @Query("select * FROM notesTable WHERE isDeleted = 0 order by id ASC")
     fun getAllNotes(): Flow<List<Note>>
 
     @Query("SELECT * FROM notesTable WHERE id =:id")
     suspend fun getNote(id: Int): Note
 
-
-    @Query("SELECT * from notesTable WHERE isDeleted = 1 order by id ASC")
+    @Query("SELECT * FROM notesTable WHERE isDeleted = 1 order by id ASC")
     fun getAllTrashNotes(): Flow<List<Note>>
+
+    @Query("SELECT * FROM notesTable WHERE title LIKE :searchText OR description LIKE :searchText")
+    suspend fun getSearchResult(searchText: String): List<Note>
 
 }
 

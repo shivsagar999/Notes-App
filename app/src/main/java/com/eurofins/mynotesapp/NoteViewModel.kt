@@ -1,5 +1,6 @@
 package com.eurofins.mynotesapp
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,18 +16,27 @@ class NoteViewModel(private val notesDao: NotesDao) : ViewModel() {
     private var _editNote = MutableLiveData<Note>()
     val editNote: LiveData<Note> get() = _editNote
 
-    var selectedPosition = mutableMapOf<Int, Note>()
+    private var _searchResults = MutableLiveData<List<Note>>()
+    val searchResults: LiveData<List<Note>> get() = _searchResults
 
-    fun deleteNote(note: Note) {
-        viewModelScope.launch {
-            notesDao.delete(note)
-        }
-    }
+
+
+    var selectedPosition = mutableMapOf<Int, Note>()
 
     fun updateNote(note: Note) {
         viewModelScope.launch {
             notesDao.update(note)
         }
+    }
+
+    fun getSearchResults(searchText: String){
+            viewModelScope.launch {
+                _searchResults.value = notesDao.getSearchResult(searchText)
+
+            }
+        Log.d("Wagle", "$searchResults  search text $searchText")
+
+
     }
 
     fun addNote(note: Note) {

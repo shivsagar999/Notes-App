@@ -1,6 +1,5 @@
 package com.eurofins.mynotesapp
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -14,20 +13,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.eurofins.mynotesapp.adapter.NoteListAdapter
-import com.eurofins.mynotesapp.data.Note
 import com.eurofins.mynotesapp.databinding.FragmentHomeBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
     lateinit var noteAdapter: NoteListAdapter
-    private var searchNotes: ArrayList<Note> = ArrayList()
-    private var mContext: Context? = null
 
     var actionMode: ActionMode? = null
 
@@ -37,13 +31,6 @@ class HomeFragment : Fragment() {
     }
     private lateinit var binding: FragmentHomeBinding
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mContext = context
-        if(mContext == null){
-            mContext = context.applicationContext
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,10 +94,15 @@ class HomeFragment : Fragment() {
         lifecycle.coroutineScope.launch {
             homeFragmentViewModel.getAllNotes().collect {
                 noteAdapter.submitList(it)
-                searchNotes.clear()
-                searchNotes.addAll(it)
+
             }
         }
+
+        homeFragmentViewModel.searchResults.observe(viewLifecycleOwner,
+            {
+                noteAdapter.submitList(it)
+            })
+
         binding.createNewNoteButton.setOnClickListener {
             actionMode?.finish()
             findNavController().navigate(R.id.action_homeFragment_to_createNoteFragment)
@@ -201,19 +193,8 @@ class HomeFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                val newNotes = ArrayList<Note>()
-                // Use dao and viewmodel
-                for (note in searchNotes) {
-                    if (note.noteTitle.lowercase(Locale.getDefault())
-                            .contains(newText.toString().lowercase(Locale.getDefault()))
-                        ||
-                        note.noteDescription.lowercase(Locale.getDefault())
-                            .contains(newText.toString().lowercase(Locale.getDefault()))
-                    ) {
-                        newNotes.add(note)
-                    }
-                }
-                noteAdapter.submitList(newNotes)
+                val searchText = "%$newText%"
+                searchText.let { homeFragmentViewModel.getSearchResults(it) }
                 return true
             }
         })
