@@ -6,27 +6,27 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Toast
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.eurofins.mynotesapp.adapter.TrashNoteListAdapter
+import com.eurofins.mynotesapp.adapter.NoteListAdapter
 import com.eurofins.mynotesapp.databinding.FragmentTrashBinding
 import com.eurofins.mynotesapp.trash.TrashViewModel
 import com.eurofins.mynotesapp.trash.TrashViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class TrashFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    lateinit var trashNoteAdapter: TrashNoteListAdapter
+    lateinit var trashNoteAdapter: NoteListAdapter
     var actionMode: ActionMode? = null
 
-    private val trashFragmentViewModel: TrashViewModel by activityViewModels {
+    val trashFragmentViewModel: TrashViewModel by activityViewModels {
         TrashViewModelFactory((activity?.application as NoteApplication).database.getNotesDao())
     }
 
@@ -58,9 +58,9 @@ class TrashFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        trashNoteAdapter = TrashNoteListAdapter({
+        trashNoteAdapter = NoteListAdapter({
             Toast.makeText(context, "You can't edit the note in trash", Toast.LENGTH_SHORT).show()
-        }, { trashNote, position ->
+        }, { note, position ->
 
             if (actionMode == null) {
                 actionMode = activity?.startActionMode(actionModeCallBack)
@@ -78,7 +78,7 @@ class TrashFragment : Fragment() {
                     selectedNote?.setBackgroundColor(resources.getColor(R.color.light_black))
                 }
             } else {
-                trashFragmentViewModel.selectedPosition.put(position, trashNote)
+                trashFragmentViewModel.selectedPosition[position] = note
             }
             if (trashFragmentViewModel.selectedPosition.isEmpty()) {
                 actionMode?.finish()
@@ -108,7 +108,6 @@ class TrashFragment : Fragment() {
         recyclerView.viewTreeObserver.addOnGlobalLayoutListener {
             for (pos in trashFragmentViewModel.selectedPosition.keys) {
                 val view = recyclerView.layoutManager?.findViewByPosition(pos)
-//                view?.setBackgroundColor(resources.getColor(R.color.bluer))
                 view?.setBackgroundColor(Color.BLUE)
                 Log.d("Wagle", "Your View is $view")
             }
@@ -135,9 +134,8 @@ class TrashFragment : Fragment() {
         override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
             return when (item.itemId) {
                 R.id.restore -> {
-                    for (trashNote in trashFragmentViewModel.selectedPosition.values) {
-                        trashFragmentViewModel.deleteTrashNote(trashNote)
-                        trashFragmentViewModel.addNoteToNotesTable(trashNote)
+                    for (note in trashFragmentViewModel.selectedPosition.values) {
+                        trashFragmentViewModel.restoreNote(note)
                     }
                     trashFragmentViewModel.selectedPosition.clear()
                     trashNoteAdapter.isSelected = false
@@ -146,8 +144,8 @@ class TrashFragment : Fragment() {
                 }
 
                 R.id.delete -> {
-                    for (trashNote in trashFragmentViewModel.selectedPosition.values) {
-                        trashFragmentViewModel.deleteTrashNote(trashNote)
+                    for (note in trashFragmentViewModel.selectedPosition.values) {
+                        trashFragmentViewModel.deleteTrashNote(note)
                     }
                     trashFragmentViewModel.selectedPosition.clear()
                     trashNoteAdapter.isSelected = false

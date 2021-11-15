@@ -6,11 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eurofins.mynotesapp.data.Note
 import com.eurofins.mynotesapp.data.NotesDao
-import com.eurofins.mynotesapp.data.TrashNote
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-class NoteViewModel(val notesDao: NotesDao) : ViewModel() {
+class NoteViewModel(private val notesDao: NotesDao) : ViewModel() {
 
     // editNote stores the Note fetched when user wants to change any particular note
     private var _editNote = MutableLiveData<Note>()
@@ -36,9 +35,11 @@ class NoteViewModel(val notesDao: NotesDao) : ViewModel() {
         }
     }
 
-    fun insertTrashNote(note: Note) {
-        val trashNote = TrashNote(note.noteTitle, note.noteDescription, note.timeStamp)
-        viewModelScope.launch { notesDao.insertIntoTrashTable(trashNote) }
+    fun updateNoteToDeleted(note: Note) {
+        note.isDeleted = true
+        viewModelScope.launch {
+            notesDao.update(note)
+        }
     }
 
     fun getAllNotes(): Flow<List<Note>> {

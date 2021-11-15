@@ -1,6 +1,5 @@
 package com.eurofins.mynotesapp
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
@@ -159,8 +158,7 @@ class HomeFragment : Fragment() {
             return when (item.itemId) {
                 R.id.delete -> {
                     for (note in homeFragmentViewModel.selectedPosition.values) {
-                        homeFragmentViewModel.deleteNote(note)
-                        homeFragmentViewModel.insertTrashNote(note)
+                        homeFragmentViewModel.updateNoteToDeleted(note)
                     }
                     homeFragmentViewModel.selectedPosition.clear()
                     noteAdapter.isSelected = false
@@ -221,10 +219,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        mContext = null
-    }
+
 }
 
 

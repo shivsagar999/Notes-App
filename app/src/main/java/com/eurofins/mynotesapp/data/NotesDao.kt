@@ -3,6 +3,7 @@ package com.eurofins.mynotesapp.data
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
+
 @Dao
 interface NotesDao {
     // If there is data with the same id then it will be ignored
@@ -15,23 +16,27 @@ interface NotesDao {
     @Delete
     suspend fun delete(note: Note)
 
-    @Query("select * from notesTable order by id ASC")
+    @Query("select * from notesTable WHERE isDeleted = 0 order by id ASC")
     fun getAllNotes(): Flow<List<Note>>
 
     @Query("SELECT * FROM notesTable WHERE id =:id")
     suspend fun getNote(id: Int): Note
 
-    // Queries for the trashTable
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertIntoTrashTable(trashNote: TrashNote)
 
-    @Update
-    suspend fun updateTrashTable(trashNote: TrashNote)
-
-    @Delete
-    suspend fun deleteFromTrashTable(trashNote: TrashNote)
-
-    @Query("SELECT * from trashTable order by id ASC")
-    fun getAllTrashNotes(): Flow<List<TrashNote>>
+    @Query("SELECT * from notesTable WHERE isDeleted = 1 order by id ASC")
+    fun getAllTrashNotes(): Flow<List<Note>>
 
 }
+
+
+
+//@Module
+//@InstallIn(ActivityComponent::class)
+//abstract class NotesModule {
+//
+//    @Provides
+//    fun bindNotesDao(
+//    ): NotesDao {
+//        return NoteDatabase.getDatabase(NoteApplication)
+//    }
+//}

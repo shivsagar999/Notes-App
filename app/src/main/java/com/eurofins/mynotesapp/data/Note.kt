@@ -6,12 +6,14 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "notesTable")
 class Note(
-    @ColumnInfo(name = "Title") var noteTitle: String,
+    @ColumnInfo(name = "title") var noteTitle: String,
     @ColumnInfo(name = "description") var noteDescription: String,
     @ColumnInfo(name = "timestamp") var timeStamp: String
 ){
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
+    @ColumnInfo
+    var isDeleted: Boolean = false
 
 }
 // Tables merge , camel casing ,
